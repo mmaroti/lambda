@@ -6,7 +6,7 @@ package org.mmaroti.lambda2;
 
 import java.util.*;
 
-public class LambdaCalculus {
+public class LambdaCalculus extends Calculus {
 	public static abstract class Term {
 		public final Set<Variable> variables = new HashSet<Variable>();
 
@@ -24,6 +24,22 @@ public class LambdaCalculus {
 				Runtime<DATA> runtime);
 	}
 
+	public static class Literal extends Term {
+		public final Object data;
+
+		public Literal(Object data) {
+			this.data = data;
+		}
+
+		public String toString() {
+			return data.toString();
+		}
+
+		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
+			return runtime.lift(data);
+		}
+	}
+
 	public static class Variable extends Term {
 		public final String name;
 
@@ -38,22 +54,6 @@ public class LambdaCalculus {
 
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			return context.getValue(this);
-		}
-	}
-
-	public static class Literal extends Term {
-		public final Object data;
-
-		public Literal(Object data) {
-			this.data = data;
-		}
-
-		public String toString() {
-			return data.toString();
-		}
-
-		public DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
-			return data;
 		}
 	}
 
@@ -74,7 +74,7 @@ public class LambdaCalculus {
 		}
 
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
-			return runtime.compile(new MyClosure<DATA>(this, context));
+			return runtime.lambda(new Closure<DATA>(context, this));
 		}
 	}
 
@@ -96,8 +96,7 @@ public class LambdaCalculus {
 
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			DATA fun = function.evaluate(context, runtime);
-			DATA arg = argument.evaluate(context, runtime);
-			return runtime.apply(fun, arg);
+			return runtime.apply(fun, new Thunk<DATA>(context, argument));
 		}
 	}
 
@@ -126,19 +125,33 @@ public class LambdaCalculus {
 		}
 	}
 
-	public static class MyClosure<DATA> extends Closure<DATA> {
+	public static class Thunk<DATA> extends Calculus.Thunk<DATA> {
+		public final Term expression;
+		public final Context<DATA> context;
+
+		public Thunk(Context<DATA> context, Term expression) {
+			this.expression = expression;
+			this.context = context;
+		}
+
+		public DATA execute(Runtime<DATA> runtime) {
+			return expression.evaluate(context, runtime);
+		}
+	}
+
+	public static class Closure<DATA> extends Calculus.Closure<DATA> {
 		public final Lambda lambda;
 		public final Context<DATA> context;
 
-		public MyClosure(Lambda lambda, Context<DATA> context) {
+		public Closure(Context<DATA> context, Lambda lambda) {
 			this.lambda = lambda;
 			this.context = context;
 		}
 
 		public DATA execute(Runtime<DATA> runtime, DATA argument) {
-			Context<DATA> c = new Context<DATA>(context, lambda.variable,
+			Context<DATA> context = new Context<DATA>(this.context, lambda.variable,
 					argument);
-			return lambda.expression.evaluate(c, runtime);
+			return lambda.expression.evaluate(context, runtime);
 		}
 	}
 }

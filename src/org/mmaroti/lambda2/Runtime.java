@@ -5,7 +5,9 @@
 package org.mmaroti.lambda2;
 
 public abstract class Runtime<DATA> {
-	abstract DATA compile(Closure<DATA> script);
+	abstract DATA lift(Object object);
 
-	abstract DATA apply(DATA function, DATA argument);
+	abstract DATA lambda(Calculus.Closure<DATA> closure);
+
+	abstract DATA apply(DATA function, Calculus.Thunk<DATA> argument);
 }
