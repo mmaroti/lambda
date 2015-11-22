@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.prelude;
+package org.old.haskell.prelude;
 
 public class Map<ARG_TYP extends Type, ARG_VAL extends Value<ARG_TYP>, RET_TYP extends Type, RET_VAL extends Value<RET_TYP>>
 		extends

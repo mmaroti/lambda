@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.prelude;
+package org.old.haskell.prelude;
 
 public class FuncType<ARG_TYP extends Type, RET_TYP extends Type> extends Type {
 

@@ -10,7 +10,6 @@ public class Test {
 	public static void main(String[] args) {
 		final Runtime<Calculus.Term> runtime = new Calculus();
 
-		final Calculus.Term t = runtime.literal("true");
 		final Calculus.Term n = runtime.literal("not");
 		final Calculus.Term l = runtime.closure("x", new Runtime.Closure<Calculus.Term>() {
 			@Override

@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.prelude;
+package org.old.haskell.prelude;
 
 public abstract class ListValue<DATA_TYP extends Type, DATA_VAL extends Value<DATA_TYP>>
 		extends Value<ListType<DATA_TYP>> {
