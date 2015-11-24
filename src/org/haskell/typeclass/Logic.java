@@ -2,13 +2,13 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.type;
+package org.haskell.typeclass;
 
-public abstract class Bool<DATA> extends TypeClass {
+public abstract class Logic<DATA> extends TypeClass {
 	public final DATA TRUE;
 	public final DATA FALSE;
 
-	public Bool(DATA t, DATA f) {
+	public Logic(DATA t, DATA f) {
 		this.TRUE = t;
 		this.FALSE = f;
 	}

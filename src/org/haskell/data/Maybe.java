@@ -4,27 +4,32 @@
 
 package org.haskell.data;
 
-public class Maybe<JUST> {
-	private static final Object nothing = new Object();
-	private final JUST just;
+public abstract class Maybe<DATA> {
+	public abstract <RET> RET match(Case<RET, DATA> match);
 
-	public boolean isNothing() {
-		return just == nothing;
+	public static abstract class Case<RET, DATA> {
+		public abstract RET nothing();
+
+		public abstract RET just(DATA elem);
+	};
+
+	public static class Nothing<DATA> extends Maybe<DATA> {
+		@Override
+		public <RET> RET match(Maybe.Case<RET, DATA> match) {
+			return match.nothing();
+		}
 	}
 
-	public JUST getJust() {
-		if (just == nothing)
-			throw new IllegalStateException();
+	public static class Just<DATA> extends Maybe<DATA> {
+		private final DATA data;
 
-		return just;
-	}
+		public Just(DATA data) {
+			this.data = data;
+		}
 
-	public Maybe(JUST just) {
-		this.just = just;
-	}
-
-	@SuppressWarnings("unchecked")
-	public Maybe() {
-		just = (JUST) nothing;
+		@Override
+		public <RET> RET match(Maybe.Case<RET, DATA> match) {
+			return match.just(data);
+		}
 	}
 }

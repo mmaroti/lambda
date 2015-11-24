@@ -2,16 +2,16 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.inst;
+package org.haskell.instance;
 
 import org.haskell.data.*;
-import org.haskell.type.*;
+import org.haskell.typeclass.*;
 
 public class ListEq<BOOL, DATA> extends Eq<BOOL, List<DATA>> {
 	private final Eq<BOOL, DATA> eq;
 
-	public ListEq(Bool<BOOL> bool, Eq<BOOL, DATA> eq) {
-		super(bool);
+	public ListEq(Logic<BOOL> logic, Eq<BOOL, DATA> eq) {
+		super(logic);
 		this.eq = eq;
 	}
 
@@ -23,12 +23,13 @@ public class ListEq<BOOL, DATA> extends Eq<BOOL, List<DATA>> {
 				return data2.match(new List.Case<BOOL, DATA>() {
 					@Override
 					public BOOL cons(DATA elem2, List<DATA> rest2) {
-						return bool.and(eq.equ(elem1, elem2), equ(rest1, rest2));
+						return logic.and(eq.equ(elem1, elem2),
+								equ(rest1, rest2));
 					}
 
 					@Override
 					public BOOL nill() {
-						return bool.FALSE;
+						return logic.FALSE;
 					}
 				});
 			}
@@ -38,12 +39,12 @@ public class ListEq<BOOL, DATA> extends Eq<BOOL, List<DATA>> {
 				return data2.match(new List.Case<BOOL, DATA>() {
 					@Override
 					public BOOL cons(DATA data, List<DATA> rest) {
-						return bool.FALSE;
+						return logic.FALSE;
 					}
 
 					@Override
 					public BOOL nill() {
-						return bool.TRUE;
+						return logic.TRUE;
 					}
 				});
 			}
