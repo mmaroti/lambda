@@ -7,7 +7,7 @@ package org.haskell.instance;
 import org.haskell.typeclass.*;
 import org.haskell.data.*;
 
-public class BoolEq extends Eq<Bool, Boolean> {
+public class BoolEq extends Eq<Bool, Bool> {
 	public static final BoolEq INSTANCE = new BoolEq();
 
 	public BoolEq() {
@@ -15,8 +15,17 @@ public class BoolEq extends Eq<Bool, Boolean> {
 	}
 
 	@Override
-	public Bool equ(Boolean data1, Boolean data2) {
-		return data1.booleanValue() == data2.booleanValue() ? logic.TRUE
-				: logic.FALSE;
+	public Bool equ(Bool data1, final Bool data2) {
+		return data1.match(new Bool.Case<Bool>() {
+			@Override
+			public Bool truly() {
+				return data2;
+			}
+
+			@Override
+			public Bool falsy() {
+				return logic.not(data2);
+			}
+		});
 	}
 }
