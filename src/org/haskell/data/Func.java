@@ -4,6 +4,6 @@
 
 package org.haskell.data;
 
-public abstract class Func<DATA, RET> {
-	public abstract RET apply(DATA data);
+public abstract class Func<ARG, RET> {
+	public abstract RET apply(ARG arg);
 }

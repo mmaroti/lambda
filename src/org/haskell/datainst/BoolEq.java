@@ -2,12 +2,12 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.instance;
+package org.haskell.datainst;
 
 import org.haskell.typeclass.*;
 import org.haskell.data.*;
 
-public class BoolEq extends Eq<Bool, Bool> {
+public class BoolEq extends Equality<Bool, Bool> {
 	public static final BoolEq INSTANCE = new BoolEq();
 
 	public BoolEq() {

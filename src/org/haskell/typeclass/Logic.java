@@ -4,22 +4,22 @@
 
 package org.haskell.typeclass;
 
-public abstract class Logic<DATA> extends TypeClass {
-	public final DATA TRUE;
-	public final DATA FALSE;
+public abstract class Logic<BOOL> {
+	public final BOOL TRUE;
+	public final BOOL FALSE;
 
-	public Logic(DATA t, DATA f) {
+	public Logic(BOOL t, BOOL f) {
 		this.TRUE = t;
 		this.FALSE = f;
 	}
 
-	public abstract DATA not(DATA data);
+	public abstract BOOL not(BOOL bool);
 
-	public DATA and(DATA data1, DATA data2) {
-		return not(or(not(data1), not(data2)));
+	public BOOL and(BOOL bool1, BOOL bool2) {
+		return not(or(not(bool1), not(bool2)));
 	}
 
-	public DATA or(DATA data1, DATA data2) {
-		return not(and(not(data1), not(data2)));
+	public BOOL or(BOOL bool1, BOOL bool2) {
+		return not(and(not(bool1), not(bool2)));
 	}
 }

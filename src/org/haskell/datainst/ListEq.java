@@ -2,15 +2,15 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.instance;
+package org.haskell.datainst;
 
 import org.haskell.data.*;
 import org.haskell.typeclass.*;
 
-public class ListEq<BOOL, DATA> extends Eq<BOOL, List<DATA>> {
-	private final Eq<BOOL, DATA> eq;
+public class ListEq<BOOL, DATA> extends Equality<BOOL, List<DATA>> {
+	private final Equality<BOOL, DATA> eq;
 
-	public ListEq(Logic<BOOL> logic, Eq<BOOL, DATA> eq) {
+	public ListEq(Logic<BOOL> logic, Equality<BOOL, DATA> eq) {
 		super(logic);
 		this.eq = eq;
 	}

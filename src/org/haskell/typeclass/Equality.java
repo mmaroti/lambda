@@ -4,10 +4,10 @@
 
 package org.haskell.typeclass;
 
-public class Eq<BOOL, DATA> extends TypeClass {
+public class Equality<BOOL, DATA> {
 	public final Logic<BOOL> logic;
 
-	public Eq(Logic<BOOL> logic) {
+	public Equality(Logic<BOOL> logic) {
 		this.logic = logic;
 	}
 

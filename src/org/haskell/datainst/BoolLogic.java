@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.instance;
+package org.haskell.datainst;
 
 import org.haskell.data.*;
 import org.haskell.typeclass.*;

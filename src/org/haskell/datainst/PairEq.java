@@ -2,16 +2,17 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.instance;
+package org.haskell.datainst;
 
 import org.haskell.data.*;
 import org.haskell.typeclass.*;
 
-public class PairEq<BOOL, FST, SND> extends Eq<BOOL, Pair<FST, SND>> {
-	private final Eq<BOOL, FST> eq1;
-	private final Eq<BOOL, SND> eq2;
+public class PairEq<BOOL, FST, SND> extends Equality<BOOL, Pair<FST, SND>> {
+	private final Equality<BOOL, FST> eq1;
+	private final Equality<BOOL, SND> eq2;
 
-	public PairEq(Logic<BOOL> logic, Eq<BOOL, FST> fst, Eq<BOOL, SND> snd) {
+	public PairEq(Logic<BOOL> logic, Equality<BOOL, FST> fst,
+			Equality<BOOL, SND> snd) {
 		super(logic);
 		this.eq1 = fst;
 		this.eq2 = snd;
