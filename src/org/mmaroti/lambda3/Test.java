@@ -5,6 +5,7 @@
 package org.mmaroti.lambda3;
 
 public class Test {
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Calculus calc = new LiteralCalculus();
 		Object plus = calc.literal("PLUS");

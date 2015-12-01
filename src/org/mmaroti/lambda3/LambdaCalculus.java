@@ -24,6 +24,7 @@ public abstract class LambdaCalculus extends Calculus {
 		return new Variable(namehint);
 	}
 
+	@SuppressWarnings("unused")
 	private static class Lambda extends Term {
 		final Variable variable;
 		final Term expression;
@@ -39,6 +40,7 @@ public abstract class LambdaCalculus extends Calculus {
 		return new Lambda(var, expression);
 	}
 
+	@SuppressWarnings("unused")
 	private static class Apply extends Term {
 		final Term function;
 		final Term argument;
