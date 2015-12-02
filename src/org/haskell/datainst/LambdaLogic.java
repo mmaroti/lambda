@@ -25,10 +25,14 @@ public class LambdaLogic<BOOL> extends Logic<Term<BOOL>> {
 			});
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Term<BOOL> not(Term<BOOL> bool) {
 		if (bool instanceof Literal) {
 			BOOL b = ((Literal<BOOL>) bool).data;
 			return new Literal<BOOL>(logic.not(b));
+		} else if (bool instanceof Apply
+				&& ((Apply<BOOL, BOOL>) bool).fun == NOT) {
+			return ((Apply<BOOL, BOOL>) bool).arg;
 		} else
 			return new Apply<BOOL, BOOL>(NOT, bool);
 	}

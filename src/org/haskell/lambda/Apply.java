@@ -7,8 +7,8 @@ package org.haskell.lambda;
 import org.haskell.data.*;
 
 public class Apply<ARG, RET> extends Term<RET> {
-	private final Term<Func<Term<ARG>, Term<RET>>> fun;
-	private final Term<ARG> arg;
+	public final Term<Func<Term<ARG>, Term<RET>>> fun;
+	public final Term<ARG> arg;
 
 	public Apply(Term<Func<Term<ARG>, Term<RET>>> fun, Term<ARG> arg) {
 		assert fun != null && arg != null;
