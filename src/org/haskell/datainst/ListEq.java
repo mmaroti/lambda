@@ -7,10 +7,10 @@ package org.haskell.datainst;
 import org.haskell.data.*;
 import org.haskell.typeclass.*;
 
-public class ListEq<BOOL, DATA> extends Equality<BOOL, List<DATA>> {
-	private final Equality<BOOL, DATA> eq;
+public class ListEq<BOOL, DATA> extends Equality<List<DATA>, BOOL> {
+	private final Equality<DATA, BOOL> eq;
 
-	public ListEq(Logic<BOOL> logic, Equality<BOOL, DATA> eq) {
+	public ListEq(Logic<BOOL> logic, Equality<DATA, BOOL> eq) {
 		super(logic);
 		this.eq = eq;
 	}

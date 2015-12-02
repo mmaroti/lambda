@@ -7,12 +7,12 @@ package org.haskell.datainst;
 import org.haskell.data.*;
 import org.haskell.typeclass.*;
 
-public class PairEq<BOOL, FST, SND> extends Equality<BOOL, Pair<FST, SND>> {
-	private final Equality<BOOL, FST> eq1;
-	private final Equality<BOOL, SND> eq2;
+public class PairEq<BOOL, FST, SND> extends Equality<Pair<FST, SND>, BOOL> {
+	private final Equality<FST, BOOL> eq1;
+	private final Equality<SND, BOOL> eq2;
 
-	public PairEq(Logic<BOOL> logic, Equality<BOOL, FST> fst,
-			Equality<BOOL, SND> snd) {
+	public PairEq(Logic<BOOL> logic, Equality<FST, BOOL> fst,
+			Equality<SND, BOOL> snd) {
 		super(logic);
 		this.eq1 = fst;
 		this.eq2 = snd;
