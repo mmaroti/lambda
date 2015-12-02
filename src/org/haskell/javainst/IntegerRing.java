@@ -22,4 +22,9 @@ public class IntegerRing extends Ring<Integer> {
 	public Integer prod(Integer elem1, Integer elem2) {
 		return elem1 * elem2;
 	}
+
+	@Override
+	public Integer negate(Integer elem) {
+		return -elem;
+	}
 }

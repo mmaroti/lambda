@@ -24,4 +24,9 @@ public class BooleanRing<BOOL> extends Ring<BOOL> {
 	public BOOL prod(BOOL elem1, BOOL elem2) {
 		return logic.and(elem1, elem2);
 	}
+
+	@Override
+	public BOOL negate(BOOL elem) {
+		return elem;
+	}
 }
