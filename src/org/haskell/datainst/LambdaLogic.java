@@ -7,6 +7,7 @@ package org.haskell.datainst;
 import org.haskell.data.*;
 import org.haskell.typeclass.*;
 import org.haskell.lambda.*;
+import org.haskell.lambda.Term;
 
 public class LambdaLogic<BOOL> extends Logic<Term<BOOL>> {
 	private Logic<BOOL> logic;
