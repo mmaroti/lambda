@@ -6,7 +6,7 @@ package org.haskell.javainst;
 
 import org.haskell.typeclass.*;
 
-public class IntegerEq extends Equality<Integer, Boolean> {
+public class IntegerEq extends Equality<Boolean, Integer> {
 	public static final IntegerEq INSTANCE = new IntegerEq();
 
 	public IntegerEq() {
