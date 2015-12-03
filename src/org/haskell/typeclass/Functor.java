@@ -4,12 +4,8 @@
 
 package org.haskell.typeclass;
 
-public abstract class Functor<FUNC, DATA1, DATA2, LIST1, LIST2> {
-	public final Callable<FUNC, DATA1, DATA2> callable;
+import org.haskell.data.*;
 
-	public Functor(Callable<FUNC, DATA1, DATA2> callable) {
-		this.callable = callable;
-	}
-
-	public abstract LIST2 fmap(FUNC func, LIST1 list);
+public abstract class Functor<LIST> {
+	public abstract <ARG, RET> LIST fmap(Func<ARG, RET> func, LIST list);
 }
