@@ -2,14 +2,14 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.datainst;
+package org.lambda.geninst;
 
 import org.haskell.typeclass.*;
 
-public class BooleanRing<BOOL> extends Ring<BOOL> {
+public class BoolRing<BOOL> extends Ring<BOOL> {
 	private final Logic<BOOL> logic;
 
-	public BooleanRing(Logic<BOOL> logic) {
+	public BoolRing(Logic<BOOL> logic) {
 		super(logic.FALSE, logic.TRUE);
 		this.logic = logic;
 	}

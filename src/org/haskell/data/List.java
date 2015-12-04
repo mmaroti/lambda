@@ -13,20 +13,6 @@ public abstract class List<DATA> {
 		public abstract RET nill();
 	}
 
-	public static <DATA> Case<List<DATA>, DATA> ctor() {
-		return new Case<List<DATA>, DATA>() {
-			@Override
-			public List<DATA> cons(DATA data, List<DATA> rest) {
-				return new Cons<DATA>(data, rest);
-			}
-
-			@Override
-			public List<DATA> nill() {
-				return new Nill<DATA>();
-			}
-		};
-	}
-
 	public static class Cons<DATA> extends List<DATA> {
 		private final DATA data;
 		private final List<DATA> rest;
