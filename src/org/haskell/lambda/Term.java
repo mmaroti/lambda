@@ -5,5 +5,5 @@
 package org.haskell.lambda;
 
 public abstract class Term<DATA> {
-	public abstract Term<DATA> evaluate();
+	public abstract Term<DATA> simplify();
 }

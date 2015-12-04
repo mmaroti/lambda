@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.lambda.geninst;
+package org.haskell.general;
 
 import org.haskell.data.*;
 import org.haskell.typeclass.*;

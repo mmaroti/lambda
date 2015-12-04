@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.lambdax;
+package org.haskell.lambda;
 
 import org.haskell.data.*;
 import org.haskell.typeclass.*;

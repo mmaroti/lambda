@@ -5,16 +5,17 @@
 package org.haskell.lambda;
 
 public class Literal<DATA> extends Term<DATA> {
-	public final DATA data;
+	private final DATA data;
+
+	public DATA getData() {
+		return data;
+	}
 
 	public Literal(DATA data) {
-		assert data != null;
-
 		this.data = data;
 	}
 
-	@Override
-	public Term<DATA> evaluate() {
+	public Term<DATA> simplify() {
 		return this;
 	}
 }

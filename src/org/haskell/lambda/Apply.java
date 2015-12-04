@@ -7,24 +7,25 @@ package org.haskell.lambda;
 import org.haskell.data.*;
 
 public class Apply<ARG, RET> extends Term<RET> {
-	public final Term<Func<Term<ARG>, Term<RET>>> fun;
-	public final Term<ARG> arg;
+	private final Term<Func<ARG, RET>> func;
+	private final Term<ARG> arg;
 
-	public Apply(Term<Func<Term<ARG>, Term<RET>>> fun, Term<ARG> arg) {
-		assert fun != null && arg != null;
+	public Apply(Term<Func<ARG, RET>> func, Term<ARG> arg) {
+		assert func != null && arg != null;
 
-		this.fun = fun;
+		this.func = func;
 		this.arg = arg;
 	}
 
-	@Override
-	public Term<RET> evaluate() {
-		Term<Func<Term<ARG>, Term<RET>>> f = fun.evaluate();
-		Term<ARG> a = arg.evaluate();
-		if (f instanceof Literal) {
-			Func<Term<ARG>, Term<RET>> g = ((Literal<Func<Term<ARG>, Term<RET>>>) f).data;
-			return g.apply(a);
-		} else if (f == fun && a == arg)
+	public Term<RET> simplify() {
+		Term<Func<ARG, RET>> f = func.simplify();
+		Term<ARG> a = arg.simplify();
+
+		if (f instanceof Literal && a instanceof Literal) {
+			Func<ARG, RET> g = ((Literal<Func<ARG, RET>>) f).getData();
+			ARG b = ((Literal<ARG>) a).getData();
+			return new Literal<RET>(g.apply(b));
+		} else if (f == func && a == arg)
 			return this;
 		else
 			return new Apply<ARG, RET>(f, a);
