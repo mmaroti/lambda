@@ -4,7 +4,12 @@
 
 package org.haskell.typeclass;
 
-public abstract class Maybe<MAYBE, DATA> {
+public abstract class Maybe<MAYBE, DATA> extends TypeClass {
+	@SuppressWarnings("unchecked")
+	public <DATA2> Maybe<MAYBE, DATA2> specialize() {
+		return (Maybe<MAYBE, DATA2>) this;
+	}
+
 	public abstract MAYBE nothing();
 
 	public abstract MAYBE just(DATA data);

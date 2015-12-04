@@ -4,6 +4,6 @@
 
 package org.haskell.typeclass;
 
-public abstract class Polymorf<TYPE> {
+public abstract class Polymorf<TYPE extends TypeClass> {
 	public abstract <DATA> TYPE specialze(Class<DATA> type);
 }

@@ -6,12 +6,6 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Functor<TYPE extends TypeClass, LIST> extends TypeClass {
-	public final Polymorf<TYPE> poly;
-
-	public Functor(Polymorf<TYPE> poly) {
-		this.poly = poly;
-	}
-
+public abstract class Functor2<LIST> extends TypeClass {
 	public abstract <ARG, RET> LIST fmap(Func<ARG, RET> func, LIST list);
 }

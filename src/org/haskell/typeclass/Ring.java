@@ -6,7 +6,7 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Ring<ELEM> {
+public abstract class Ring<ELEM> extends TypeClass {
 	public final ELEM ZERO;
 
 	public final ELEM UNIT;

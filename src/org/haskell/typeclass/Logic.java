@@ -6,7 +6,7 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Logic<BOOL> {
+public abstract class Logic<BOOL> extends TypeClass {
 	public final BOOL TRUE;
 	public final BOOL FALSE;
 

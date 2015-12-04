@@ -4,11 +4,10 @@
 
 package org.lambda.geninst;
 
-import org.haskell.data.Func;
+import org.haskell.data.*;
 import org.haskell.typeclass.*;
 
 public class MaybeFunctor<MAYBE> extends Functor<Maybe<MAYBE, ?>, MAYBE> {
-
 	public MaybeFunctor(Polymorf<Maybe<MAYBE, ?>> poly) {
 		super(poly);
 	}
