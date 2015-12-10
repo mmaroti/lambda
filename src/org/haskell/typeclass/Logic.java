@@ -6,9 +6,10 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Logic<BOOL> extends TypeClass {
-	public final BOOL TRUE;
-	public final BOOL FALSE;
+public abstract class Logic<BOOL> {
+	public final Type<BOOL> type;
+	public final BOOL tru;
+	public final BOOL fals;
 
 	public final Func<BOOL, BOOL> NOT = new Func<BOOL, BOOL>() {
 		@Override
@@ -41,9 +42,10 @@ public abstract class Logic<BOOL> extends TypeClass {
 		}
 	};
 
-	public Logic(BOOL t, BOOL f) {
-		this.TRUE = t;
-		this.FALSE = f;
+	public Logic(Type<BOOL> type, BOOL tru, BOOL fals) {
+		this.type = type;
+		this.tru = tru;
+		this.fals = fals;
 	}
 
 	public abstract BOOL not(BOOL bool);

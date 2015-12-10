@@ -10,7 +10,7 @@ public class IntegerRing extends Ring<Integer> {
 	public static final IntegerRing INSTANCE = new IntegerRing();
 
 	public IntegerRing() {
-		super(0, 1);
+		super(IntegerType.INSTANCE, 0, 1);
 	}
 
 	@Override

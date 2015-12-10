@@ -6,7 +6,7 @@ package org.haskell.datainst;
 
 import org.haskell.typeclass.*;
 
-public class DataMaybe<DATA> extends Maybe<DataMaybe.Data<DATA>, DATA> {
+public class MaybeOpt<DATA> extends Optional<MaybeOpt.Data<DATA>, DATA> {
 	public abstract static class Data<DATA> {
 		abstract <RET> RET match(Case<RET, DATA> expr);
 	}

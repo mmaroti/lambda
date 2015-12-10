@@ -6,10 +6,10 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Ring<ELEM> extends TypeClass {
-	public final ELEM ZERO;
-
-	public final ELEM UNIT;
+public abstract class Ring<ELEM> {
+	public final Type<ELEM> type;
+	public final ELEM zero;
+	public final ELEM unit;
 
 	public final Func<ELEM, ELEM> NEGATE = new Func<ELEM, ELEM>() {
 		@Override
@@ -42,9 +42,10 @@ public abstract class Ring<ELEM> extends TypeClass {
 		}
 	};
 
-	public Ring(ELEM zero, ELEM unit) {
-		this.ZERO = zero;
-		this.UNIT = unit;
+	public Ring(Type<ELEM> type, ELEM zero, ELEM unit) {
+		this.type = type;
+		this.zero = zero;
+		this.unit = unit;
 	}
 
 	public abstract ELEM negate(ELEM elem);

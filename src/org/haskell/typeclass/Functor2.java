@@ -6,6 +6,6 @@ package org.haskell.typeclass;
 
 import org.haskell.data.*;
 
-public abstract class Functor2<LIST> extends TypeClass {
+public abstract class Functor2<LIST> {
 	public abstract <ARG, RET> LIST fmap(Func<ARG, RET> func, LIST list);
 }

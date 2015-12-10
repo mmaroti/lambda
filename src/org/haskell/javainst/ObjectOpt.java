@@ -6,14 +6,14 @@ package org.haskell.javainst;
 
 import org.haskell.typeclass.*;
 
-public class ObjectMaybe extends Maybe<Object, Object> {
+public class ObjectOpt<DATA> extends Optional<DATA, DATA> {
 	@Override
-	public Object nothing() {
+	public DATA nothing() {
 		return null;
 	}
 
 	@Override
-	public Object just(Object data) {
+	public DATA just(DATA data) {
 		if (data == null)
 			throw new IllegalArgumentException();
 
@@ -21,7 +21,7 @@ public class ObjectMaybe extends Maybe<Object, Object> {
 	}
 
 	@Override
-	public <RET> RET match(Object opt, Case<RET, Object> expr) {
+	public <RET> RET match(DATA opt, Case<RET, DATA> expr) {
 		if (opt == null)
 			return expr.nothing();
 		else

@@ -4,6 +4,6 @@
 
 package org.haskell.typeclass;
 
-public abstract class Callable<FUNC, ARG, RET> extends TypeClass {
+public abstract class Callable<FUNC, ARG, RET> {
 	public abstract RET call(FUNC func, ARG arg);
 }
