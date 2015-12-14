@@ -4,9 +4,9 @@
 
 package org.haskell.datainst;
 
-import org.haskell.typeclass.*;
+import org.haskell.algdata.*;
 
-public class MaybeOpt<DATA> extends Optional<MaybeOpt.Data<DATA>, DATA> {
+public class MaybeDat<DATA> extends Maybe<MaybeDat.Data<DATA>, DATA> {
 	public abstract static class Data<DATA> {
 		abstract <RET> RET match(Case<RET, DATA> expr);
 	}

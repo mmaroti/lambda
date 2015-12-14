@@ -6,11 +6,11 @@ package org.haskell.javainst;
 
 import org.haskell.typeclass.*;
 
-public class BooleanLogic extends Logic<Boolean> {
-	public static final BooleanLogic INSTANCE = new BooleanLogic();
+public class JavaLogic extends Logic<Boolean> {
+	public static final JavaLogic INSTANCE = new JavaLogic();
 
-	public BooleanLogic() {
-		super(true, false);
+	public JavaLogic() {
+		super(Boolean.TRUE, Boolean.FALSE);
 	}
 
 	@Override

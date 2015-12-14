@@ -4,9 +4,9 @@
 
 package org.haskell.javainst;
 
-import org.haskell.typeclass.*;
+import org.haskell.algdata.*;
 
-public class ObjectOpt<DATA> extends Optional<DATA, DATA> {
+public class JavaMaybe<DATA> extends Maybe<DATA, DATA> {
 	@Override
 	public DATA nothing() {
 		return null;

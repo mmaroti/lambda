@@ -2,9 +2,9 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.haskell.typeclass;
+package org.haskell.algdata;
 
-public abstract class Optional<OPT, DATA> {
+public abstract class Maybe<OPT, DATA> {
 	public abstract OPT nothing();
 
 	public abstract OPT just(DATA data);

@@ -10,7 +10,7 @@ public class IntegerEq extends Equality<Boolean, Integer> {
 	public static final IntegerEq INSTANCE = new IntegerEq();
 
 	public IntegerEq() {
-		super(BooleanLogic.INSTANCE);
+		super(JavaLogic.INSTANCE);
 	}
 
 	@Override
