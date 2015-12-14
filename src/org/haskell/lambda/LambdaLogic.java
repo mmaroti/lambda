@@ -11,7 +11,7 @@ public class LambdaLogic<BOOL> extends Logic<Term<BOOL>> {
 	private final Logic<BOOL> logic;
 
 	public LambdaLogic(Logic<BOOL> logic) {
-		super(null, new Literal<BOOL>(logic.tru), new Literal<BOOL>(logic.tru));
+		super(new Literal<BOOL>(logic.TRUE), new Literal<BOOL>(logic.TRUE));
 		this.logic = logic;
 	}
 

@@ -29,7 +29,7 @@ public class ListEq<BOOL, DATA> extends Equality<BOOL, List<DATA>> {
 
 					@Override
 					public BOOL nill() {
-						return logic.fals;
+						return logic.FALSE;
 					}
 				});
 			}
@@ -39,12 +39,12 @@ public class ListEq<BOOL, DATA> extends Equality<BOOL, List<DATA>> {
 				return data2.match(new List.Case<BOOL, DATA>() {
 					@Override
 					public BOOL cons(DATA data, List<DATA> rest) {
-						return logic.fals;
+						return logic.FALSE;
 					}
 
 					@Override
 					public BOOL nill() {
-						return logic.tru;
+						return logic.TRUE;
 					}
 				});
 			}

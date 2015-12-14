@@ -9,7 +9,7 @@ import org.haskell.typeclass.*;
 
 public class BoolLogic extends Logic<Bool> {
 	public BoolLogic() {
-		super(Bool.TYPE, new Bool.True(), new Bool.False());
+		super(new Bool.True(), new Bool.False());
 	}
 
 	@Override
@@ -17,12 +17,12 @@ public class BoolLogic extends Logic<Bool> {
 		return data.match(new Bool.Case<Bool>() {
 			@Override
 			public Bool truly() {
-				return fals;
+				return FALSE;
 			}
 
 			@Override
 			public Bool falsy() {
-				return tru;
+				return TRUE;
 			}
 		});
 	}
@@ -35,19 +35,19 @@ public class BoolLogic extends Logic<Bool> {
 				return data2.match(new Bool.Case<Bool>() {
 					@Override
 					public Bool truly() {
-						return tru;
+						return TRUE;
 					}
 
 					@Override
 					public Bool falsy() {
-						return fals;
+						return FALSE;
 					}
 				});
 			}
 
 			@Override
 			public Bool falsy() {
-				return fals;
+				return FALSE;
 			}
 		});
 	}

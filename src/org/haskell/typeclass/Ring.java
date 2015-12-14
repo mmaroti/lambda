@@ -7,7 +7,6 @@ package org.haskell.typeclass;
 import org.haskell.data.*;
 
 public abstract class Ring<ELEM> {
-	public final Type<ELEM> type;
 	public final ELEM zero;
 	public final ELEM unit;
 
@@ -42,8 +41,7 @@ public abstract class Ring<ELEM> {
 		}
 	};
 
-	public Ring(Type<ELEM> type, ELEM zero, ELEM unit) {
-		this.type = type;
+	public Ring(ELEM zero, ELEM unit) {
 		this.zero = zero;
 		this.unit = unit;
 	}

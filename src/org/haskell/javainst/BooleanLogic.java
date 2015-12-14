@@ -10,7 +10,7 @@ public class BooleanLogic extends Logic<Boolean> {
 	public static final BooleanLogic INSTANCE = new BooleanLogic();
 
 	public BooleanLogic() {
-		super(BooleanType.INSTANCE, true, false);
+		super(true, false);
 	}
 
 	@Override
