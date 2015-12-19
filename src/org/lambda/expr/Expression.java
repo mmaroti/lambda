@@ -30,4 +30,47 @@ public abstract class Expression {
 
 	@Override
 	public abstract String toString();
+
+	public static Expression read(Parser parser) {
+		List<Expression> exprs = new ArrayList<Expression>();
+
+		for (;;) {
+			parser.spaces();
+			int cp = parser.peek();
+			if (cp == '(') {
+				parser.next();
+				exprs.add(read(parser));
+
+				parser.spaces();
+				cp = parser.peek();
+				if (cp != ')')
+					throw new IllegalArgumentException(
+							"unclosed parenthesis at " + parser.location());
+				parser.next();
+			} else if (Character.isLetter(cp)) {
+				String v = parser.identifier();
+				exprs.add(new Variable(v));
+			} else if (Character.isDigit(cp)) {
+				Integer v = parser.integer();
+				exprs.add(new Literal(v));
+			} else if (cp == '\\') {
+				parser.next();
+
+			} else if (cp == ')' || cp == -1)
+				break;
+			else
+				throw new IllegalArgumentException("invalid character at "
+						+ parser.location());
+		}
+
+		if (exprs.isEmpty())
+			throw new IllegalArgumentException("empty expression at "
+					+ parser.location());
+
+		Expression e = exprs.get(0);
+		for (int i = 1; i < exprs.size(); i++)
+			e = new Application(e, exprs.get(i));
+
+		return e;
+	}
 }

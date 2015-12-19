@@ -44,5 +44,10 @@ public class Test {
 				K_COMBINATOR), K_COMBINATOR);
 		System.out.println(SKK);
 		System.out.println(SKK.simplify());
+
+		Parser parser = new Parser("x1 012 hihi");
+		System.out.println(parser.identifier());
+		System.out.println(parser.integer());
+		System.out.println(parser.identifier());
 	}
 }
