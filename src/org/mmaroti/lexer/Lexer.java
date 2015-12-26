@@ -10,7 +10,7 @@ public class Lexer {
 	private final Reader reader;
 	private int line;
 	private int column;
-	private int cp;
+	private int peek;
 
 	public static final int EOF = -1;
 
@@ -21,7 +21,7 @@ public class Lexer {
 
 		line = 1;
 		column = 0;
-		cp = 0;
+		peek = 0;
 		next();
 	}
 
@@ -30,85 +30,39 @@ public class Lexer {
 
 		line = 1;
 		column = 0;
-		cp = 0;
+		peek = 0;
 		next();
 	}
 
-	public String location() {
-		return "line " + line + " column " + column;
+	public void error(String message) {
+		throw new IllegalArgumentException(message + " at line " + line
+				+ " column " + column);
 	}
 
 	public int peek() {
-		return cp;
+		return peek;
 	}
 
 	public void next() {
-		assert cp != EOF;
+		assert peek != EOF;
 
-		boolean cr = cp == '\r';
+		boolean cr = peek == '\r';
 
-		if (cp == '\n') {
+		if (peek == '\n') {
 			line += 1;
 			column = 1;
 		} else
 			column += 1;
 
 		try {
-			cp = reader.read();
+			peek = reader.read();
 		} catch (IOException exp) {
 			throw new RuntimeException(exp);
 		}
 
-		if (cr && cp != '\n') {
+		if (cr && peek != '\n') {
 			line += 1;
 			column = 1;
 		}
-	}
-
-	public void spaces() {
-		while (Character.isSpaceChar(cp))
-			next();
-	}
-
-	public String identifier() {
-		spaces();
-
-		if (!Character.isLetter(cp))
-			return null;
-
-		StringBuilder s = new StringBuilder();
-		while (Character.isLetter(cp) || Character.isDigit(cp)) {
-			s.appendCodePoint(cp);
-			next();
-		}
-
-		return s.toString();
-	}
-
-	public Integer integer() {
-		spaces();
-
-		if (!Character.isDigit(cp))
-			return null;
-
-		long a = cp - '0';
-		next();
-
-		while (Character.isDigit(cp)) {
-			a *= 10;
-			a += cp - '0';
-
-			if (a > Integer.MAX_VALUE)
-				throw new IllegalArgumentException("too large integer at"
-						+ location());
-
-			next();
-		}
-
-		if (Character.isLetter(cp))
-			throw new IllegalArgumentException("unexpected letter at "
-					+ location());
-
-		return new Integer((int) a);
 	}
 }

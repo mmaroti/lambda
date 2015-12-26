@@ -1,8 +1,7 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, UndecidableInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, UndecidableInstances, RankNTypes, NoImplicitPrelude #-}
 
 module Lambda where
 
-import Prelude ()
 import qualified Prelude
 
 -- TYPE CLASSES
