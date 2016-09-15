@@ -22,9 +22,11 @@ public class Apply extends Term {
 
 	@Override
 	public Data evaluate(Context context) {
-		Callable c = (Callable) function.evaluate(context);
-		Data a = argument.evaluate(context);
-		return c.apply(a);
+		Closure clo = (Closure) function.evaluate(context);
+		Data arg = argument.evaluate(context);
+
+		Lambda lam = (Lambda) clo.term;
+		return lam.body.evaluate(new Context(arg, context));
 	}
 
 	@Override

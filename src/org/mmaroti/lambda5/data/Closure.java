@@ -6,7 +6,7 @@ package org.mmaroti.lambda5.data;
 
 import org.mmaroti.lambda5.term.*;
 
-public class Closure extends Callable {
+public class Closure extends Data {
 	public final Context context;
 	public final Term term;
 
@@ -17,13 +17,12 @@ public class Closure extends Callable {
 		this.term = term;
 	}
 
-	@Override
 	public Data apply(Data argument) {
 		return term.evaluate(new Context(argument, context));
 	}
 
 	@Override
 	public String toString() {
-		return "closure " + term;
+		return term.toString(Context.toScope(context));
 	}
 }

@@ -32,8 +32,47 @@ public abstract class Term {
 
 	@Override
 	public String toString() {
+		assert isClosed();
+
 		StringBuilder builder = new StringBuilder();
 		format(builder, null);
 		return builder.toString();
+	}
+
+	public String toString(Scope scope) {
+		assert getExtent() <= Scope.getExtent(scope);
+
+		StringBuilder builder = new StringBuilder();
+		format(builder, scope);
+		return builder.toString();
+	}
+
+	public static void main(String[] args) {
+		Term i = new Lambda("x", new Variable(0));
+		System.out.println(i);
+		System.out.println(i.evaluate(null));
+
+		Term k = new Lambda("x", new Lambda("y", new Variable(1)));
+		System.out.println(k);
+
+		Term s = new Lambda("x", new Lambda("y", new Lambda("z", new Apply(new Apply(new Variable(2), new Variable(0)),
+				new Apply(new Variable(1), new Variable(0))))));
+		System.out.println(s);
+
+		Term f = new IntLiteral(5);
+		System.out.println(f);
+		System.out.println(f.evaluate(null));
+
+		Term i5 = new Apply(i, f);
+		System.out.println(i5);
+		System.out.println(i5.evaluate(null));
+
+		Term kf = new Apply(k, f);
+		System.out.println(kf);
+		System.out.println(kf.evaluate(null));
+
+		Term sf = new Apply(s, f);
+		System.out.println(sf);
+		System.out.println(sf.evaluate(null));
 	}
 }

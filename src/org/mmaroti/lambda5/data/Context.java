@@ -4,6 +4,8 @@
 
 package org.mmaroti.lambda5.data;
 
+import org.mmaroti.lambda5.term.*;
+
 public class Context {
 	public final Data data;
 	public final Context parent;
@@ -31,5 +33,12 @@ public class Context {
 		}
 
 		return d;
+	}
+
+	public static Scope toScope(Context context) {
+		if (context == null)
+			return null;
+
+		return new Scope("[" + context.data.toString() + "]", toScope(context.parent));
 	}
 }

@@ -32,8 +32,9 @@ public class Lambda extends Term {
 
 	@Override
 	protected void format(StringBuilder builder, Scope scope) {
+		builder.append('\\');
 		builder.append(variable);
-		builder.append("->");
+		builder.append('.');
 		body.format(builder, new Scope(variable, scope), 3);
 	}
 }
