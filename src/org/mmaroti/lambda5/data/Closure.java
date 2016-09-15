@@ -1,3 +1,7 @@
+/**
+ *	Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.mmaroti.lambda5.data;
 
 import org.mmaroti.lambda5.term.*;
@@ -16,5 +20,10 @@ public class Closure extends Callable {
 	@Override
 	public Data apply(Data argument) {
 		return term.evaluate(new Context(argument, context));
+	}
+
+	@Override
+	public String toString() {
+		return "closure " + term;
 	}
 }

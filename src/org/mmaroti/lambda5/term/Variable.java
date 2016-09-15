@@ -1,3 +1,7 @@
+/**
+ *	Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.mmaroti.lambda5.term;
 
 import org.mmaroti.lambda5.data.*;
@@ -18,5 +22,15 @@ public class Variable extends Term {
 	@Override
 	public Data evaluate(Context context) {
 		return context.lookup(index);
+	}
+
+	@Override
+	protected int precedence() {
+		return 10;
+	}
+
+	@Override
+	protected void format(StringBuilder builder, Scope scope) {
+		builder.append(scope.lookup(index));
 	}
 }
