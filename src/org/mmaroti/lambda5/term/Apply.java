@@ -21,12 +21,12 @@ public class Apply extends Term {
 	}
 
 	@Override
-	public Data evaluate(Context context) {
+	public Data evaluate(Context<Data> context) {
 		Closure clo = (Closure) function.evaluate(context);
 		Data arg = argument.evaluate(context);
 
 		Lambda lam = (Lambda) clo.term;
-		return lam.body.evaluate(new Context(arg, context));
+		return lam.body.evaluate(new Context<Data>(arg, context));
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class Apply extends Term {
 	}
 
 	@Override
-	protected void format(StringBuilder builder, Scope scope) {
-		function.format(builder, scope, 5);
-		argument.format(builder, scope, 6);
+	protected void format(StringBuilder builder, Context<String> context) {
+		function.format(builder, context, 5);
+		argument.format(builder, context, 6);
 	}
 }

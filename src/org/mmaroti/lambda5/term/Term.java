@@ -13,18 +13,18 @@ public abstract class Term {
 		return getExtent() == 0;
 	}
 
-	public abstract Data evaluate(Context context);
+	public abstract Data evaluate(Context<Data> context);
 
 	protected abstract int precedence();
 
-	protected abstract void format(StringBuilder builder, Scope scope);
+	protected abstract void format(StringBuilder builder, Context<String> scope);
 
-	protected void format(StringBuilder builder, Scope scope, int prec) {
+	protected void format(StringBuilder builder, Context<String> context, int prec) {
 		boolean b = prec > precedence();
 		if (b)
 			builder.append('(');
 
-		format(builder, scope);
+		format(builder, context);
 
 		if (b)
 			builder.append(')');
@@ -39,11 +39,11 @@ public abstract class Term {
 		return builder.toString();
 	}
 
-	public String toString(Scope scope) {
-		assert getExtent() <= Scope.getExtent(scope);
+	public String toString(Context<String> context) {
+		assert getExtent() <= Context.getExtent(context);
 
 		StringBuilder builder = new StringBuilder();
-		format(builder, scope);
+		format(builder, context);
 		return builder.toString();
 	}
 

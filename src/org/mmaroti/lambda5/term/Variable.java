@@ -20,7 +20,7 @@ public class Variable extends Term {
 	}
 
 	@Override
-	public Data evaluate(Context context) {
+	public Data evaluate(Context<Data> context) {
 		return context.lookup(index);
 	}
 
@@ -30,7 +30,7 @@ public class Variable extends Term {
 	}
 
 	@Override
-	protected void format(StringBuilder builder, Scope scope) {
-		builder.append(scope.lookup(index));
+	protected void format(StringBuilder builder, Context<String> context) {
+		builder.append(context.lookup(index));
 	}
 }

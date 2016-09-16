@@ -21,7 +21,7 @@ public class Lambda extends Term {
 	}
 
 	@Override
-	public Data evaluate(Context context) {
+	public Data evaluate(Context<Data> context) {
 		return new Closure(context, this);
 	}
 
@@ -31,10 +31,10 @@ public class Lambda extends Term {
 	}
 
 	@Override
-	protected void format(StringBuilder builder, Scope scope) {
+	protected void format(StringBuilder builder, Context<String> context) {
 		builder.append('\\');
 		builder.append(variable);
 		builder.append('.');
-		body.format(builder, new Scope(variable, scope), 3);
+		body.format(builder, new Context<String>(variable, context), 3);
 	}
 }

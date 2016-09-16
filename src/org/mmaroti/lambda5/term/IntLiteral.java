@@ -19,7 +19,7 @@ public class IntLiteral extends Term {
 	}
 
 	@Override
-	public Data evaluate(Context context) {
+	public Data evaluate(Context<Data> context) {
 		return new IntData(value);
 	}
 
@@ -29,7 +29,7 @@ public class IntLiteral extends Term {
 	}
 
 	@Override
-	protected void format(StringBuilder builder, Scope scope) {
+	protected void format(StringBuilder builder, Context<String> context) {
 		builder.append(value);
 	}
 }

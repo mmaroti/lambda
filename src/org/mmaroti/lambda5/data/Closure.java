@@ -7,10 +7,10 @@ package org.mmaroti.lambda5.data;
 import org.mmaroti.lambda5.term.*;
 
 public class Closure extends Data {
-	public final Context context;
+	public final Context<Data> context;
 	public final Term term;
 
-	public Closure(Context context, Term term) {
+	public Closure(Context<Data> context, Term term) {
 		assert term.getExtent() <= Context.getExtent(context);
 
 		this.context = context;
@@ -18,7 +18,7 @@ public class Closure extends Data {
 	}
 
 	public Data apply(Data argument) {
-		return term.evaluate(new Context(argument, context));
+		return term.evaluate(new Context<Data>(argument, context));
 	}
 
 	@Override
