@@ -26,7 +26,7 @@ public class Apply extends Term {
 		Data arg = argument.evaluate(context);
 
 		Lambda lam = (Lambda) clo.term;
-		return lam.body.evaluate(new Context<Data>(arg, context));
+		return lam.body.evaluate(new Context<Data>(arg, clo.context));
 	}
 
 	@Override
