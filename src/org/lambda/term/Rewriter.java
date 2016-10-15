@@ -49,7 +49,15 @@ public class Rewriter extends Executor<Term> {
 		Term c = new Lambda(new Variable(1));
 		System.out.println(c);
 
+		Term d = new Apply(b, new Integer(1));
+		System.out.println(d);
+
 		Rewriter rewriter = new Rewriter();
-		System.out.println(c.evaluate(rewriter, new Integer(2)));
+		System.out.println(c.evaluate(rewriter, a));
+
+		System.out
+				.println(a.evaluate(rewriter, new Integer(1), new Integer(2)));
+
+		System.out.println(a.evaluate(rewriter, new Variable(0), b));
 	}
 }
