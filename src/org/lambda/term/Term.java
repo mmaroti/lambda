@@ -11,7 +11,7 @@ public abstract class Term {
 	public abstract int getExtent();
 
 	/**
-	 * The number of occurences of the given variable
+	 * The number of occurrences of the given variable
 	 */
 	public abstract int getOccurences(int index);
 
@@ -20,7 +20,10 @@ public abstract class Term {
 	 */
 	public abstract Term increment(int limit);
 
-	public abstract <DATA> Function<DATA> compile(Compiler<DATA> compiler);
+	/**
+	 * Compiles the term into a generic executable function.
+	 */
+	public abstract Function compile();
 
 	public abstract String toString();
 }

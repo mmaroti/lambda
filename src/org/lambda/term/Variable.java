@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.lambda.term;
 
 public class Variable extends Term {
@@ -27,8 +31,17 @@ public class Variable extends Term {
 	}
 
 	@Override
-	public <DATA> Function<DATA> compile(Compiler<DATA> compiler) {
-		return compiler.variable(index);
+	public Function compile() {
+		return new Function() {
+			@Override
+			public <DATA> DATA evaluate(Executor<DATA> executor,
+					Context<DATA> context) {
+				for (int i = 0; i < index; i++)
+					context = context.parent;
+
+				return context.data;
+			}
+		};
 	}
 
 	@Override

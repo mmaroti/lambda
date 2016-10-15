@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.lambda.term;
 
 public class Lambda extends Term {
@@ -28,8 +32,15 @@ public class Lambda extends Term {
 	}
 
 	@Override
-	public <DATA> Function<DATA> compile(final Compiler<DATA> compiler) {
-		return compiler.lambda(body);
+	public Function compile() {
+		final Function function = body.compile();
+		return new Function() {
+			@Override
+			public <DATA> DATA evaluate(Executor<DATA> executor,
+					Context<DATA> context) {
+				return executor.closure(function, context);
+			}
+		};
 	}
 
 	@Override

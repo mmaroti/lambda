@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.lambda.term;
 
 public abstract class Literal extends Term {

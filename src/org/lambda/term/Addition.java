@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) Miklos Maroti, 2016
+ */
+
 package org.lambda.term;
 
 public class Addition extends Binary {
@@ -11,8 +15,18 @@ public class Addition extends Binary {
 	}
 
 	@Override
-	public <DATA> Function<DATA> compile(final Compiler<DATA> compiler) {
-		return compiler.addition(left, right);
+	public Function compile() {
+		final Function f = left.compile();
+		final Function g = right.compile();
+		return new Function() {
+			@Override
+			public <DATA> DATA evaluate(Executor<DATA> executor,
+					Context<DATA> context) {
+				DATA a = f.evaluate(executor, context);
+				DATA b = g.evaluate(executor, context);
+				return executor.addition(a, b);
+			}
+		};
 	}
 
 	@Override
