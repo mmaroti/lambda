@@ -28,9 +28,4 @@ public class Addition extends Binary {
 			}
 		};
 	}
-
-	@Override
-	public String toString() {
-		return "(" + left + ")+(" + right + ")";
-	}
 }

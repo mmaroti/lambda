@@ -25,5 +25,16 @@ public abstract class Term {
 	 */
 	public abstract Function compile();
 
-	public abstract String toString();
+	@SuppressWarnings("unchecked")
+	public <DATA> DATA evaluate(Executor<DATA> executor, DATA... data) {
+		return compile().evaluate(executor, data);
+	}
+
+	public String toString() {
+		String[] upvars = new String[getExtent()];
+		for (int i = 0; i < upvars.length; i++)
+			upvars[i] = Character.toString((char) ('a' + i));
+
+		return evaluate(Printer.INSTANCE, upvars);
+	}
 }

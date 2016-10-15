@@ -12,4 +12,13 @@ public class Context<DATA> {
 		this.data = data;
 		this.parent = parent;
 	}
+
+	public static int length(Context<?> context) {
+		int a = 0;
+		while (context != null) {
+			a += 1;
+			context = context.parent;
+		}
+		return a;
+	}
 }

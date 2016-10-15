@@ -7,12 +7,16 @@ package org.lambda.term;
 public class Rewriter extends Executor<Term> {
 	@Override
 	public Term closure(Function function, Context<Term> context) {
-		Context<Term> c = new Context<Term>(new Variable(0), increase(context));
+		Context<Term> c = new Context<Term>(new Variable(0), increment(context));
 		return new Lambda(function.evaluate(this, c));
 	}
 
-	private Context<Term> increase(Context<Term> context) {
-		return context;
+	private Context<Term> increment(Context<Term> context) {
+		if (context == null)
+			return context;
+
+		return new Context<Term>(context.data.increment(0),
+				increment(context.parent));
 	}
 
 	@Override
@@ -36,7 +40,7 @@ public class Rewriter extends Executor<Term> {
 	}
 
 	public static void main(String[] args) {
-		Term a = new Addition(new Integer(1), new Variable(0));
+		Term a = new Addition(new Variable(1), new Variable(0));
 		System.out.println(a);
 
 		Term b = new Lambda(new Variable(0));
@@ -46,6 +50,6 @@ public class Rewriter extends Executor<Term> {
 		System.out.println(c);
 
 		Rewriter rewriter = new Rewriter();
-		System.out.println(c.compile().evaluate(rewriter, new Integer(2)));
+		System.out.println(c.evaluate(rewriter, new Integer(2)));
 	}
 }

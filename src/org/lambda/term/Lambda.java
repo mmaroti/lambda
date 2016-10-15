@@ -14,7 +14,7 @@ public class Lambda extends Term {
 
 	@Override
 	public int getExtent() {
-		return 1 + body.getExtent();
+		return Math.max(body.getExtent() - 1, 0);
 	}
 
 	@Override
@@ -41,10 +41,5 @@ public class Lambda extends Term {
 				return executor.closure(function, context);
 			}
 		};
-	}
-
-	@Override
-	public String toString() {
-		return "\\" + body;
 	}
 }

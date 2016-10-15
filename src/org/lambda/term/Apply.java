@@ -28,9 +28,4 @@ public class Apply extends Binary {
 			}
 		};
 	}
-
-	@Override
-	public String toString() {
-		return "(" + left + ")(" + right + ")";
-	}
 }

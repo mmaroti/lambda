@@ -12,11 +12,6 @@ public class Integer extends Literal {
 	}
 
 	@Override
-	public String toString() {
-		return "" + value;
-	}
-
-	@Override
 	public Function compile() {
 		return new Function() {
 			@Override
