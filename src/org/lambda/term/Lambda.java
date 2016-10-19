@@ -32,6 +32,15 @@ public class Lambda extends Term {
 	}
 
 	@Override
+	public Term decrement(int limit) {
+		Term b = body.decrement(limit + 1);
+		if (b == body)
+			return this;
+		else
+			return new Lambda(b);
+	}
+
+	@Override
 	public Function compile() {
 		final Function function = body.compile();
 		return new Function() {

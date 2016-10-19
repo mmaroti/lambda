@@ -11,7 +11,7 @@ public abstract class Function {
 	@SuppressWarnings("unchecked")
 	public <DATA> DATA evaluate(Executor<DATA> executor, DATA... data) {
 		Context<DATA> context = null;
-		for (int i = 0; i < data.length; i++)
+		for (int i = data.length - 1; i >= 0; i--)
 			context = new Context<DATA>(data[i], context);
 
 		return evaluate(executor, context);

@@ -26,6 +26,15 @@ public class Rewriter extends Executor<Term> {
 
 	@Override
 	public Term apply(Term func, Term arg) {
+		if (func instanceof Lambda) {
+			Term body = ((Lambda) func).body;
+			int n = body.getOccurences(0);
+
+			if (n == 0)
+				return body.decrement(0);
+			else if (n == 1)
+				return body.rewrite(arg); // TODO: need a decrement?
+		}
 		return new Apply(func, arg);
 	}
 
@@ -39,25 +48,37 @@ public class Rewriter extends Executor<Term> {
 			return new Addition(left, right);
 	}
 
+	public static Rewriter INSTANCE = new Rewriter();
+
 	public static void main(String[] args) {
-		Term a = new Addition(new Variable(1), new Variable(0));
+		Term a = new Addition(new Variable(2), new Variable(1));
 		System.out.println(a);
+		System.out.println(a.rewrite());
+		System.out.println(a.rewrite(new Integer(1)));
+		System.out.println(a.rewrite(new Integer(1), new Integer(2)));
 
-		Term b = new Lambda(new Variable(0));
+		Term b = new Lambda(a);
 		System.out.println(b);
+		System.out.println(b.rewrite());
+		System.out.println(b.rewrite(new Integer(1)));
+		System.out.println(b.rewrite(new Integer(1), new Integer(2)));
 
-		Term c = new Lambda(new Variable(1));
+		Term c = new Lambda(b);
 		System.out.println(c);
+		System.out.println(c.rewrite());
+		System.out.println(c.rewrite(new Integer(1)));
+		System.out.println(c.rewrite(new Integer(1), new Integer(2)));
 
-		Term d = new Apply(b, new Integer(1));
+		Term d = new Apply(b, new Integer(3));
 		System.out.println(d);
+		System.out.println(d.rewrite());
+		System.out.println(d.rewrite(new Integer(1)));
+		System.out.println(d.rewrite(new Integer(1), new Integer(2)));
 
-		Rewriter rewriter = new Rewriter();
-		System.out.println(c.evaluate(rewriter, a));
-
-		System.out
-				.println(a.evaluate(rewriter, new Integer(1), new Integer(2)));
-
-		System.out.println(a.evaluate(rewriter, new Variable(0), b));
+		Term e = new Apply(c, new Integer(4));
+		System.out.println(e);
+		System.out.println(e.rewrite());
+		System.out.println(e.rewrite(new Integer(1)));
+		System.out.println(e.rewrite(new Integer(1), new Integer(2)));
 	}
 }

@@ -31,6 +31,16 @@ public class Variable extends Term {
 	}
 
 	@Override
+	public Term decrement(int limit) {
+		if (index < limit)
+			return this;
+		else if (index > limit)
+			return new Variable(index - 1);
+		else
+			throw new IllegalStateException();
+	}
+
+	@Override
 	public Function compile() {
 		return new Function() {
 			@Override
@@ -42,10 +52,5 @@ public class Variable extends Term {
 				return context.data;
 			}
 		};
-	}
-
-	@Override
-	public String toString() {
-		return Character.toString((char) ('x' + index));
 	}
 }

@@ -36,4 +36,14 @@ public abstract class Binary extends Term {
 		else
 			return create(l, r);
 	}
+
+	@Override
+	public Term decrement(int limit) {
+		Term l = left.increment(limit);
+		Term r = right.increment(limit);
+		if (l == left && r == right)
+			return this;
+		else
+			return create(l, r);
+	}
 }

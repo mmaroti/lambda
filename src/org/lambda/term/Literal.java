@@ -19,4 +19,9 @@ public abstract class Literal extends Term {
 	public Term increment(int limit) {
 		return this;
 	}
+
+	@Override
+	public Term decrement(int limit) {
+		return this;
+	}
 }
