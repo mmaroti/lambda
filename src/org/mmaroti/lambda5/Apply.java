@@ -2,9 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2016
  */
 
-package org.mmaroti.lambda5.term;
-
-import org.mmaroti.lambda5.data.*;
+package org.mmaroti.lambda5;
 
 public class Apply extends Term {
 	public final Term function;

@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.mmaroti.lambda7;
+package org.mmaroti.lambda6;
 
 import java.io.*;
 
@@ -53,7 +53,7 @@ public class Parser {
 			throw new RuntimeException(exp);
 		}
 	}
-	
+
 	public void spaces() {
 		while (Character.isSpaceChar(cp))
 			next();

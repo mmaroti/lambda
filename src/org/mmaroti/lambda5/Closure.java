@@ -2,9 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2016
  */
 
-package org.mmaroti.lambda5.data;
-
-import org.mmaroti.lambda5.term.*;
+package org.mmaroti.lambda5;
 
 public class Closure extends Data {
 	public final Context<Data> context;

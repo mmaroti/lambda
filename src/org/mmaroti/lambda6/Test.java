@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.mmaroti.lambda7;
+package org.mmaroti.lambda6;
 
 public class Test {
 	public static Expression S_COMBINATOR = new Lambda("f", new Lambda("g",

@@ -2,9 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2016
  */
 
-package org.mmaroti.lambda5.term;
-
-import org.mmaroti.lambda5.data.*;
+package org.mmaroti.lambda5;
 
 public abstract class Term {
 	public abstract int getExtent();
@@ -19,7 +17,8 @@ public abstract class Term {
 
 	protected abstract void format(StringBuilder builder, Context<String> scope);
 
-	protected void format(StringBuilder builder, Context<String> context, int prec) {
+	protected void format(StringBuilder builder, Context<String> context,
+			int prec) {
 		boolean b = prec > precedence();
 		if (b)
 			builder.append('(');
@@ -55,8 +54,9 @@ public abstract class Term {
 		Term k = new Lambda("x", new Lambda("y", new Variable(1)));
 		System.out.println(k);
 
-		Term s = new Lambda("x", new Lambda("y", new Lambda("z", new Apply(new Apply(new Variable(2), new Variable(0)),
-				new Apply(new Variable(1), new Variable(0))))));
+		Term s = new Lambda("x", new Lambda("y", new Lambda("z", new Apply(
+				new Apply(new Variable(2), new Variable(0)), new Apply(
+						new Variable(1), new Variable(0))))));
 		System.out.println(s);
 
 		Term f = new IntLiteral(5);

@@ -2,25 +2,24 @@
  *	Copyright (C) Miklos Maroti, 2016
  */
 
-package org.mmaroti.lambda5.term;
+package org.mmaroti.lambda5;
 
-import org.mmaroti.lambda5.data.*;
+public class Variable extends Term {
+	public final int index;
 
-public class IntLiteral extends Term {
-	public final int value;
-
-	public IntLiteral(int value) {
-		this.value = value;
+	public Variable(int index) {
+		assert index >= 0;
+		this.index = index;
 	}
 
 	@Override
 	public int getExtent() {
-		return 0;
+		return index + 1;
 	}
 
 	@Override
 	public Data evaluate(Context<Data> context) {
-		return new IntData(value);
+		return context.lookup(index);
 	}
 
 	@Override
@@ -30,6 +29,6 @@ public class IntLiteral extends Term {
 
 	@Override
 	protected void format(StringBuilder builder, Context<String> context) {
-		builder.append(value);
+		builder.append(context.lookup(index));
 	}
 }

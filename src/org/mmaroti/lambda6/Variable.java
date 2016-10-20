@@ -2,7 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2015
  */
 
-package org.mmaroti.lambda7;
+package org.mmaroti.lambda6;
 
 import java.util.*;
 

@@ -2,9 +2,7 @@
  *	Copyright (C) Miklos Maroti, 2016
  */
 
-package org.mmaroti.lambda5.term;
-
-import org.mmaroti.lambda5.data.Data;
+package org.mmaroti.lambda5;
 
 public class Context<DATA> {
 	public final DATA data;
@@ -39,6 +37,7 @@ public class Context<DATA> {
 		if (context == null)
 			return null;
 
-		return new Context<String>("[" + context.data.toString() + "]", toScope(context.parent));
+		return new Context<String>("[" + context.data.toString() + "]",
+				toScope(context.parent));
 	}
 }
