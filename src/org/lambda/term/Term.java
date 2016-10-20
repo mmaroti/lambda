@@ -30,28 +30,23 @@ public abstract class Term {
 	 */
 	public abstract Function compile();
 
-	@SuppressWarnings("unchecked")
-	public <DATA> DATA evaluate(Executor<DATA> executor, DATA... data) {
-		return compile().evaluate(executor, data);
-	}
+	public Term rewrite() {
+		Function f = compile();
 
-	public Term rewrite(Term... data) {
-		Term[] upvars = new Term[getExtent()];
+		Context<Term> c = null;
+		for (int i = f.extent - 1; i >= 0; i--)
+			c = new Context<Term>(new Variable(i), c);
 
-		for (int i = data.length; i < upvars.length; i++)
-			upvars[i] = new Variable(i);
-
-		for (int i = 0; i < Math.min(upvars.length, data.length); i++)
-			upvars[i] = data[i];
-
-		return evaluate(Rewriter.INSTANCE, upvars);
+		return f.evaluate(Rewriter.INSTANCE, c);
 	}
 
 	public String toString() {
-		Printer.Data[] upvars = new Printer.Data[getExtent()];
-		for (int i = 0; i < upvars.length; i++)
-			upvars[upvars.length - 1 - i] = new Printer.Data((char) ('a' + i));
+		Function f = compile();
 
-		return evaluate(Printer.INSTANCE, upvars).value;
+		Context<Printer.Data> c = null;
+		for (int i = 0; i < f.extent; i++)
+			c = new Context<Printer.Data>(Printer.variable(i), c);
+
+		return f.evaluate(Printer.INSTANCE, c).value;
 	}
 }

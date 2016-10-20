@@ -18,7 +18,7 @@ public class Addition extends Binary {
 	public Function compile() {
 		final Function f = left.compile();
 		final Function g = right.compile();
-		return new Function() {
+		return new Function(Math.max(f.extent, g.extent)) {
 			@Override
 			public <DATA> DATA evaluate(Executor<DATA> executor,
 					Context<DATA> context) {

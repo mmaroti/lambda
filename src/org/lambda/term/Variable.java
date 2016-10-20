@@ -42,7 +42,7 @@ public class Variable extends Term {
 
 	@Override
 	public Function compile() {
-		return new Function() {
+		return new Function(index + 1) {
 			@Override
 			public <DATA> DATA evaluate(Executor<DATA> executor,
 					Context<DATA> context) {
