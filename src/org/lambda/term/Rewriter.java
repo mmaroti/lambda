@@ -15,8 +15,7 @@ public class Rewriter extends Executor<Term> {
 		if (context == null)
 			return context;
 
-		return new Context<Term>(context.data.increment(0),
-				increment(context.parent));
+		return new Context<Term>(context.data.increment(0), increment(context.parent));
 	}
 
 	@Override
@@ -28,7 +27,7 @@ public class Rewriter extends Executor<Term> {
 	public Term apply(Term func, Term arg) {
 		if (func instanceof Lambda) {
 			Term b = ((Lambda) func).body;
-			if (b.getOccurences(0) <= 1) {
+			if (b.getOccurences(0) <= 1 || arg instanceof Variable || arg instanceof Literal) {
 				Function f = b.compile();
 
 				Context<Term> c = null;

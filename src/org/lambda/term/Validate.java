@@ -12,32 +12,19 @@ public class Validate {
 	}
 
 	public static void main(String[] args) {
-		Term a = new Addition(new Variable(1), new Variable(0));
+		Term a = new Addition(new Variable(1), new Addition(new Variable(0), new Variable(0)));
 		print(a);
 
-		Term b = new Lambda(a);
+		Term b = new Apply(new Lambda(a), new Integer(10));
 		print(b);
 
-		Term c = new Lambda(b);
-		print(c);
-
-		Term d = new Apply(b, new Integer(10));
-		print(d);
-
-		Term e = new Apply(c, new Integer(20));
-		print(e);
-
-		Term f = new Apply(e, new Integer(30));
-		print(f);
-
-		Term s = new Lambda(new Lambda(new Lambda(new Apply(new Apply(
-				new Variable(2), new Variable(0)), new Apply(new Variable(1),
-				new Variable(0))))));
+		Term s = new Lambda(new Lambda(new Lambda(new Apply(new Apply(new Variable(2), new Variable(0)), new Apply(
+			new Variable(1), new Variable(0))))));
 		print(s);
 
 		Term k = new Lambda(new Lambda(new Variable(1)));
 		print(k);
-		
+
 		Term t = new Apply(new Apply(s, k), k);
 		print(t);
 	}

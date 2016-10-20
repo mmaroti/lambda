@@ -7,18 +7,11 @@ package org.lambda.term;
 public class Context<DATA> {
 	public final DATA data;
 	public final Context<DATA> parent;
+	public final int length;
 
 	public Context(DATA data, Context<DATA> parent) {
 		this.data = data;
 		this.parent = parent;
-	}
-
-	public static int length(Context<?> context) {
-		int a = 0;
-		while (context != null) {
-			a += 1;
-			context = context.parent;
-		}
-		return a;
+		this.length = parent == null ? 1 : parent.length + 1;
 	}
 }

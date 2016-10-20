@@ -12,6 +12,5 @@ public abstract class Function {
 		this.extent = extent;
 	}
 
-	public abstract <DATA> DATA evaluate(Executor<DATA> executor,
-			Context<DATA> context);
+	public abstract <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context);
 }
