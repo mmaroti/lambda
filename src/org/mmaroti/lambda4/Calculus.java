@@ -128,6 +128,7 @@ public class Calculus implements Runtime<Calculus.Term> {
 		}
 	}
 
+	@Override
 	public Term literal(String name) {
 		if (name.equals("true"))
 			return TRUE;
@@ -139,10 +140,12 @@ public class Calculus implements Runtime<Calculus.Term> {
 			return new Literal(name);
 	}
 
+	@Override
 	public <TARGET> TARGET lift(Runtime<TARGET> runtime, Term data) {
 		return data.lift(runtime, null);
 	}
 
+	@Override
 	public Term apply(Term function, Term argument) {
 		return function.apply(argument);
 	}
@@ -243,12 +246,14 @@ public class Calculus implements Runtime<Calculus.Term> {
 		}
 	};
 
+	@Override
 	public Term closure(String var, Closure<Term> closure) {
 		Variable variable = new Variable(var);
 		Term expression = closure.evaluate(this, variable);
 		return new Lambda(variable, expression);
 	}
 
+	@Override
 	public Term conditional(Term test, Conditional<Term> conditional) {
 		return null;
 	}

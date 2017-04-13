@@ -14,6 +14,7 @@ public abstract class Context {
 	public abstract Data localize(Literal literal);
 
 	public static abstract class Data {
+		@Override
 		public abstract String toString();
 
 		public Data call(Data argument) {

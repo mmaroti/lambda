@@ -20,6 +20,7 @@ public class Calculus {
 			return null;
 		}
 
+		@Override
 		public abstract String toString();
 
 		public abstract Data evaluate(Context context);
@@ -33,10 +34,12 @@ public class Calculus {
 			variables.add(this);
 		}
 
+		@Override
 		public String toString() {
 			return name;
 		}
 
+		@Override
 		public Data evaluate(Context context) {
 			if (context == null)
 				throw new IllegalArgumentException();
@@ -52,10 +55,12 @@ public class Calculus {
 			this.data = data;
 		}
 
+		@Override
 		public String toString() {
 			return data.toString();
 		}
 
+		@Override
 		public Data evaluate(Context context) {
 			return context.localize(this);
 		}

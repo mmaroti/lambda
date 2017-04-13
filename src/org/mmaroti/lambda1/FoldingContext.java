@@ -8,18 +8,22 @@ import org.mmaroti.lambda1.Calculus.*;
 import org.mmaroti.lambda1.LambdaCalculus.*;
 
 public class FoldingContext extends Context {
+	@Override
 	public Data getValue(Variable var) {
 		return new Fragment(var);
 	}
 
+	@Override
 	public Data closure(Variable variable, Term expression) {
 		return new Fragment(new Abstraction(variable, expression));
 	}
 
+	@Override
 	public String toString() {
 		return "folding";
 	}
 
+	@Override
 	public Data localize(Literal literal) {
 		return new Fragment(literal);
 	}
@@ -35,6 +39,7 @@ public class FoldingContext extends Context {
 			this.value = value;
 		}
 
+		@Override
 		public Data getValue(Variable var) {
 			if (var == variable)
 				return value;
@@ -42,6 +47,7 @@ public class FoldingContext extends Context {
 				return parent.getValue(var);
 		}
 
+		@Override
 		public String toString() {
 			Context c = this;
 			String s = ")";
@@ -68,10 +74,12 @@ public class FoldingContext extends Context {
 			this.term = term;
 		}
 
+		@Override
 		public String toString() {
 			return "(frag " + term.toString() + ")";
 		}
 
+		@Override
 		public Data call(Data argument) {
 			Term arg = ((Fragment) argument).term;
 

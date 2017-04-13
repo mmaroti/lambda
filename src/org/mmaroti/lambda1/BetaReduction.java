@@ -18,6 +18,7 @@ public class BetaReduction extends Context {
 		this.replacement = data;
 	}
 
+	@Override
 	public Data getValue(Variable var) {
 		BetaReduction c = this;
 		do {
@@ -30,12 +31,14 @@ public class BetaReduction extends Context {
 		return new Fragment(var);
 	}
 
+	@Override
 	public Data closure(Variable var, Term expression) {
 		BetaReduction context = new BetaReduction(this, var, var);
 		expression = ((Fragment) expression.evaluate(context)).term;
 		return new Fragment(new Abstraction(var, expression));
 	}
 
+	@Override
 	public String toString() {
 		BetaReduction c = this;
 		String s = ")";
@@ -48,6 +51,7 @@ public class BetaReduction extends Context {
 		return "(beta " + s;
 	}
 
+	@Override
 	public Data localize(Literal literal) {
 		return new Fragment(literal);
 	}
@@ -59,10 +63,12 @@ public class BetaReduction extends Context {
 			this.term = term;
 		}
 
+		@Override
 		public String toString() {
 			return "(frag " + term.toString() + ")";
 		}
 
+		@Override
 		public Data call(Data argument) {
 			Term arg = ((Fragment) argument).term;
 			return new Fragment(new Application(term, arg));

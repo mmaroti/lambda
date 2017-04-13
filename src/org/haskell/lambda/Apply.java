@@ -17,6 +17,7 @@ public class Apply<ARG, RET> extends Term<RET> {
 		this.arg = arg;
 	}
 
+	@Override
 	public Term<RET> simplify() {
 		Term<Func<ARG, RET>> f = func.simplify();
 		Term<ARG> a = arg.simplify();

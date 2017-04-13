@@ -18,6 +18,7 @@ public class LambdaCalculus extends Calculus {
 			return null;
 		}
 
+		@Override
 		public abstract String toString();
 
 		public abstract <DATA> DATA evaluate(Context<DATA> context,
@@ -31,10 +32,12 @@ public class LambdaCalculus extends Calculus {
 			this.data = data;
 		}
 
+		@Override
 		public String toString() {
 			return data.toString();
 		}
 
+		@Override
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			return runtime.lift(data);
 		}
@@ -48,10 +51,12 @@ public class LambdaCalculus extends Calculus {
 			variables.add(this);
 		}
 
+		@Override
 		public String toString() {
 			return name;
 		}
 
+		@Override
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			return context.getValue(this);
 		}
@@ -69,10 +74,12 @@ public class LambdaCalculus extends Calculus {
 			variables.remove(variable);
 		}
 
+		@Override
 		public String toString() {
 			return "(lambda " + variable + " " + expression + ")";
 		}
 
+		@Override
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			return runtime.lambda(new Closure<DATA>(context, this));
 		}
@@ -90,10 +97,12 @@ public class LambdaCalculus extends Calculus {
 			variables.addAll(argument.variables);
 		}
 
+		@Override
 		public String toString() {
 			return "(apply " + function + " " + argument + ")";
 		}
 
+		@Override
 		public <DATA> DATA evaluate(Context<DATA> context, Runtime<DATA> runtime) {
 			DATA fun = function.evaluate(context, runtime);
 			return runtime.apply(fun, new Thunk<DATA>(context, argument));
@@ -134,6 +143,7 @@ public class LambdaCalculus extends Calculus {
 			this.context = context;
 		}
 
+		@Override
 		public DATA execute(Runtime<DATA> runtime) {
 			return expression.evaluate(context, runtime);
 		}
@@ -148,6 +158,7 @@ public class LambdaCalculus extends Calculus {
 			this.context = context;
 		}
 
+		@Override
 		public DATA execute(Runtime<DATA> runtime, DATA argument) {
 			Context<DATA> context = new Context<DATA>(this.context, lambda.variable,
 					argument);

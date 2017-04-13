@@ -15,11 +15,13 @@ public abstract class LambdaCalculus extends Calculus {
 			this.name = name;
 		}
 
+		@Override
 		public String toString() {
 			return name;
 		}
 	}
 
+	@Override
 	public Term variable(String namehint) {
 		return new Variable(namehint);
 	}

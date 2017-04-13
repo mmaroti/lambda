@@ -10,18 +10,22 @@ public class RuntimeContext extends Context {
 	public RuntimeContext() {
 	}
 
+	@Override
 	public Data getValue(Variable var) {
 		throw new IllegalArgumentException();
 	}
 
+	@Override
 	public Data closure(Variable variable, Term expression) {
 		return new Closure(this, variable, expression);
 	}
 
+	@Override
 	public Data localize(Literal literal) {
 		return literal.data;
 	}
 
+	@Override
 	public String toString() {
 		return "runtime";
 	}
@@ -41,6 +45,7 @@ public class RuntimeContext extends Context {
 			this.value = value;
 		}
 
+		@Override
 		public Data getValue(Variable var) {
 			if (var == variable)
 				return value;
@@ -48,6 +53,7 @@ public class RuntimeContext extends Context {
 				return parent.getValue(var);
 		}
 
+		@Override
 		public String toString() {
 			Context c = this;
 			String s = ")";
@@ -66,6 +72,7 @@ public class RuntimeContext extends Context {
 			return "(" + s;
 		}
 
+		@Override
 		public Data closure(Variable variable, Term expression) {
 			return new Closure(this, variable, expression);
 		}
@@ -83,10 +90,12 @@ public class RuntimeContext extends Context {
 			this.expression = expression;
 		}
 
+		@Override
 		public Data call(Data argument) {
 			return expression.evaluate(context.push(variable, argument));
 		}
 
+		@Override
 		public String toString() {
 			return "(closure (" + context + ") " + variable + " " + expression
 					+ ")";
@@ -100,12 +109,14 @@ public class RuntimeContext extends Context {
 			this.value = value;
 		}
 
+		@Override
 		public String toString() {
 			return Integer.toString(value);
 		}
 	}
 
 	public static final Data ADD = new Data() {
+		@Override
 		public Data call(Data arg1) {
 			if (!(arg1 instanceof Number))
 				throw new IllegalArgumentException();
@@ -113,6 +124,7 @@ public class RuntimeContext extends Context {
 			final int val1 = ((Number) arg1).value;
 
 			return new Data() {
+				@Override
 				public Data call(Data arg2) {
 					if (!(arg2 instanceof Number))
 						throw new IllegalArgumentException();
@@ -121,12 +133,14 @@ public class RuntimeContext extends Context {
 					return new Number(val1 + val2);
 				}
 
+				@Override
 				public String toString() {
 					return "ADD" + val1;
 				}
 			};
 		}
 
+		@Override
 		public String toString() {
 			return "ADD";
 		}

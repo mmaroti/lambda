@@ -40,6 +40,7 @@ public abstract class Term {
 		return f.evaluate(Rewriter.INSTANCE, c);
 	}
 
+	@Override
 	public String toString() {
 		Function f = compile();
 

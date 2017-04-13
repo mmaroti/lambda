@@ -19,10 +19,12 @@ public class LambdaCalculus extends Calculus {
 			variables.remove(variable);
 		}
 
+		@Override
 		public String toString() {
 			return "(fun " + variable + " " + expression + ")";
 		}
 
+		@Override
 		public Data evaluate(Context context) {
 			return context.closure(variable, expression);
 		}
@@ -40,10 +42,12 @@ public class LambdaCalculus extends Calculus {
 			variables.addAll(argument.variables);
 		}
 
+		@Override
 		public String toString() {
 			return "(call " + function + " " + argument + ")";
 		}
 
+		@Override
 		public Data evaluate(Context context) {
 			Data fun = function.evaluate(context);
 			Data arg = argument.evaluate(context);

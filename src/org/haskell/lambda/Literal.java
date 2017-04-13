@@ -15,6 +15,7 @@ public class Literal<DATA> extends Term<DATA> {
 		this.data = data;
 	}
 
+	@Override
 	public Term<DATA> simplify() {
 		return this;
 	}

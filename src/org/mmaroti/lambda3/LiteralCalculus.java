@@ -14,6 +14,7 @@ public class LiteralCalculus extends Calculus {
 			this.name = name;
 		}
 
+		@Override
 		public String toString() {
 			return name;
 		}
@@ -26,6 +27,7 @@ public class LiteralCalculus extends Calculus {
 			super(name);
 		}
 
+		@Override
 		Object apply(Object arg) {
 			return new BinaryCurry(this, arg);
 		}
@@ -44,6 +46,7 @@ public class LiteralCalculus extends Calculus {
 			this.first = first;
 		}
 
+		@Override
 		public Object apply(Object arg) {
 			return func.apply(first, arg);
 		}
