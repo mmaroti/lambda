@@ -1,10 +1,10 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public abstract class Term extends Evaluable {
+public abstract class Term<LIT> extends Evaluable<LIT> {
 	/**
 	 * The number of occurrences of the given variable
 	 */
@@ -13,19 +13,19 @@ public abstract class Term extends Evaluable {
 	/**
 	 * Increments the indices of the unbound variables greater than the limit
 	 */
-	public abstract Term increment(int limit);
+	public abstract Term<LIT> increment(int limit);
 
 	/**
 	 * Decrements the indices of the unbound variables greater than the limit
 	 */
-	public abstract Term decrement(int limit);
+	public abstract Term<LIT> decrement(int limit);
 
-	public Term rewrite() {
-		Context<Term> c = null;
+	public Term<LIT> rewrite() {
+		Context<Term<LIT>> c = null;
 		for (int i = getExtent() - 1; i >= 0; i--)
-			c = new Context<Term>(new Variable(i), c);
+			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
 
-		return evaluate(Rewriter.INSTANCE, c);
+		return evaluate(new Rewriter<LIT>(), c);
 	}
 
 	@Override
@@ -34,6 +34,6 @@ public abstract class Term extends Evaluable {
 		for (int i = 0; i < getExtent(); i++)
 			c = new Context<Printer.Data>(Printer.variable(i), c);
 
-		return evaluate(Printer.INSTANCE, c).value;
+		return evaluate(new Printer<LIT>(), c).value;
 	}
 }

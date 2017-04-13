@@ -1,33 +1,38 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
 public class Validate {
-	public static void print(Term term) {
+	public static void print(Term<Boolean> term) {
 		System.out.println(term);
 		System.out.println(term.rewrite());
 		System.out.println();
 	}
 
 	public static void main(String[] args) {
-		Term a = new Addition(new Variable(1), new Addition(new Variable(0),
-				new Variable(0)));
+		Term<Boolean> a = new Addition<Boolean>(new Variable<Boolean>(1),
+				new Addition<Boolean>(new Variable<Boolean>(0),
+						new Variable<Boolean>(0)));
 		print(a);
 
-		Term b = new Apply(new Lambda(a), new Integer(10));
+		Term<Boolean> b = new Apply<Boolean>(new Lambda<Boolean>(a),
+				new Integer<Boolean>(10));
 		print(b);
 
-		Term s = new Lambda(new Lambda(new Lambda(new Apply(new Apply(
-				new Variable(2), new Variable(0)), new Apply(new Variable(1),
-				new Variable(0))))));
+		Term<Boolean> s = new Lambda<Boolean>(new Lambda<Boolean>(
+				new Lambda<Boolean>(new Apply<Boolean>(new Apply<Boolean>(
+						new Variable<Boolean>(2), new Variable<Boolean>(0)),
+						new Apply<Boolean>(new Variable<Boolean>(1),
+								new Variable<Boolean>(0))))));
 		print(s);
 
-		Term k = new Lambda(new Lambda(new Variable(1)));
+		Term<Boolean> k = new Lambda<Boolean>(new Lambda<Boolean>(
+				new Variable<Boolean>(1)));
 		print(k);
 
-		Term t = new Apply(new Apply(s, k), k);
+		Term<Boolean> t = new Apply<Boolean>(new Apply<Boolean>(s, k), k);
 		print(t);
 	}
 }

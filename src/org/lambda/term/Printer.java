@@ -1,10 +1,10 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public class Printer extends Executor<Printer.Data> {
+public class Printer<LIT> extends Executor<Printer.Data, LIT> {
 	public static class Data {
 		public final static int ATOM = 0;
 		public final static int APPLY = 1;
@@ -45,7 +45,7 @@ public class Printer extends Executor<Printer.Data> {
 	}
 
 	@Override
-	public Data closure(Evaluable function, Context<Data> context) {
+	public Data closure(Evaluable<LIT> function, Context<Data> context) {
 		int ext = getExtent(context);
 		Data var = variable(ext);
 		Data body = function.evaluate(this, new Context<Data>(var, context));
@@ -71,5 +71,8 @@ public class Printer extends Executor<Printer.Data> {
 				left.format(Data.SUM) + " + " + right.format(Data.SUM));
 	}
 
-	public static Printer INSTANCE = new Printer();
+	@Override
+	public Data literal(LIT value) {
+		return new Data(Data.ATOM, 0, value.toString());
+	}
 }

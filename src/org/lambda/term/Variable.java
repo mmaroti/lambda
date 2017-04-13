@@ -1,10 +1,10 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public class Variable extends Term {
+public class Variable<LIT> extends Term<LIT> {
 	public final int index;
 
 	public Variable(int index) {
@@ -23,25 +23,26 @@ public class Variable extends Term {
 	}
 
 	@Override
-	public Term increment(int limit) {
+	public Term<LIT> increment(int limit) {
 		if (index < limit)
 			return this;
 		else
-			return new Variable(index + 1);
+			return new Variable<LIT>(index + 1);
 	}
 
 	@Override
-	public Term decrement(int limit) {
+	public Term<LIT> decrement(int limit) {
 		if (index < limit)
 			return this;
 		else if (index > limit)
-			return new Variable(index - 1);
+			return new Variable<LIT>(index - 1);
 		else
 			throw new IllegalStateException();
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context) {
+	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+			Context<DATA> context) {
 		for (int i = 0; i < index; i++)
 			context = context.parent;
 

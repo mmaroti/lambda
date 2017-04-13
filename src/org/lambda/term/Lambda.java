@@ -1,13 +1,13 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public class Lambda extends Term {
-	public final Term body;
+public class Lambda<LIT> extends Term<LIT> {
+	public final Term<LIT> body;
 
-	public Lambda(Term body) {
+	public Lambda(Term<LIT> body) {
 		assert body != null;
 		this.body = body;
 	}
@@ -23,25 +23,26 @@ public class Lambda extends Term {
 	}
 
 	@Override
-	public Term increment(int limit) {
-		Term b = body.increment(limit + 1);
+	public Term<LIT> increment(int limit) {
+		Term<LIT> b = body.increment(limit + 1);
 		if (b == body)
 			return this;
 		else
-			return new Lambda(b);
+			return new Lambda<LIT>(b);
 	}
 
 	@Override
-	public Term decrement(int limit) {
-		Term b = body.decrement(limit + 1);
+	public Term<LIT> decrement(int limit) {
+		Term<LIT> b = body.decrement(limit + 1);
 		if (b == body)
 			return this;
 		else
-			return new Lambda(b);
+			return new Lambda<LIT>(b);
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context) {
+	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+			Context<DATA> context) {
 		return executor.closure(body, context);
 	}
 }

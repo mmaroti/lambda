@@ -1,10 +1,10 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public abstract class Evaluable {
+public abstract class Evaluable<LIT> {
 	/**
 	 * The number of unbound variables (highest index + 1)
 	 */
@@ -13,6 +13,6 @@ public abstract class Evaluable {
 	/**
 	 * Evaluates this function with the given executor and context
 	 */
-	public abstract <DATA> DATA evaluate(Executor<DATA> executor,
+	public abstract <DATA> DATA evaluate(Executor<DATA, LIT> executor,
 			Context<DATA> context);
 }

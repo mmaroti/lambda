@@ -1,10 +1,10 @@
 /**
- * Copyright (C) Miklos Maroti, 2016
+ * Copyright (C) Miklos Maroti, 2016-2017
  */
 
 package org.lambda.term;
 
-public abstract class Literal extends Term {
+public abstract class Literal<LIT> extends Term<LIT> {
 	@Override
 	public int getExtent() {
 		return 0;
@@ -16,12 +16,12 @@ public abstract class Literal extends Term {
 	}
 
 	@Override
-	public Term increment(int limit) {
+	public Term<LIT> increment(int limit) {
 		return this;
 	}
 
 	@Override
-	public Term decrement(int limit) {
+	public Term<LIT> decrement(int limit) {
 		return this;
 	}
 }
