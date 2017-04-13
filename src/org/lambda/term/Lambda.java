@@ -41,14 +41,7 @@ public class Lambda extends Term {
 	}
 
 	@Override
-	public Function compile() {
-		final Function function = body.compile();
-		return new Function(Math.max(function.extent - 1, 0)) {
-			@Override
-			public <DATA> DATA evaluate(Executor<DATA> executor,
-					Context<DATA> context) {
-				return executor.closure(function, context);
-			}
-		};
+	public <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context) {
+		return executor.closure(body, context);
 	}
 }

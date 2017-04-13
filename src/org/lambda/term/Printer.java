@@ -45,7 +45,7 @@ public class Printer extends Executor<Printer.Data> {
 	}
 
 	@Override
-	public Data closure(Function function, Context<Data> context) {
+	public Data closure(Evaluable function, Context<Data> context) {
 		int ext = getExtent(context);
 		Data var = variable(ext);
 		Data body = function.evaluate(this, new Context<Data>(var, context));

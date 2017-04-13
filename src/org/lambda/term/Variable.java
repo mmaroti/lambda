@@ -41,16 +41,10 @@ public class Variable extends Term {
 	}
 
 	@Override
-	public Function compile() {
-		return new Function(index + 1) {
-			@Override
-			public <DATA> DATA evaluate(Executor<DATA> executor,
-					Context<DATA> context) {
-				for (int i = 0; i < index; i++)
-					context = context.parent;
+	public <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context) {
+		for (int i = 0; i < index; i++)
+			context = context.parent;
 
-				return context.data;
-			}
-		};
+		return context.data;
 	}
 }

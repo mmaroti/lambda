@@ -12,13 +12,7 @@ public class Integer extends Literal {
 	}
 
 	@Override
-	public Function compile() {
-		return new Function(0) {
-			@Override
-			public <DATA> DATA evaluate(Executor<DATA> executor,
-					Context<DATA> context) {
-				return executor.integer(value);
-			}
-		};
+	public <DATA> DATA evaluate(Executor<DATA> executor, Context<DATA> context) {
+		return executor.integer(value);
 	}
 }

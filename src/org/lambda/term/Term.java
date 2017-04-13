@@ -4,12 +4,7 @@
 
 package org.lambda.term;
 
-public abstract class Term {
-	/**
-	 * The number of unbound variables (highest index + 1)
-	 */
-	public abstract int getExtent();
-
+public abstract class Term extends Evaluable {
 	/**
 	 * The number of occurrences of the given variable
 	 */
@@ -25,29 +20,20 @@ public abstract class Term {
 	 */
 	public abstract Term decrement(int limit);
 
-	/**
-	 * Compiles the term into a generic executable function.
-	 */
-	public abstract Function compile();
-
 	public Term rewrite() {
-		Function f = compile();
-
 		Context<Term> c = null;
-		for (int i = f.extent - 1; i >= 0; i--)
+		for (int i = getExtent() - 1; i >= 0; i--)
 			c = new Context<Term>(new Variable(i), c);
 
-		return f.evaluate(Rewriter.INSTANCE, c);
+		return evaluate(Rewriter.INSTANCE, c);
 	}
 
 	@Override
 	public String toString() {
-		Function f = compile();
-
 		Context<Printer.Data> c = null;
-		for (int i = 0; i < f.extent; i++)
+		for (int i = 0; i < getExtent(); i++)
 			c = new Context<Printer.Data>(Printer.variable(i), c);
 
-		return f.evaluate(Printer.INSTANCE, c).value;
+		return evaluate(Printer.INSTANCE, c).value;
 	}
 }

@@ -5,7 +5,7 @@
 package org.lambda.term;
 
 public abstract class Executor<DATA> {
-	public abstract DATA closure(Function function, Context<DATA> context);
+	public abstract DATA closure(Evaluable function, Context<DATA> context);
 
 	public abstract DATA integer(int value);
 

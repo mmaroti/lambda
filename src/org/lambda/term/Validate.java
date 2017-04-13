@@ -12,14 +12,16 @@ public class Validate {
 	}
 
 	public static void main(String[] args) {
-		Term a = new Addition(new Variable(1), new Addition(new Variable(0), new Variable(0)));
+		Term a = new Addition(new Variable(1), new Addition(new Variable(0),
+				new Variable(0)));
 		print(a);
 
 		Term b = new Apply(new Lambda(a), new Integer(10));
 		print(b);
 
-		Term s = new Lambda(new Lambda(new Lambda(new Apply(new Apply(new Variable(2), new Variable(0)), new Apply(
-			new Variable(1), new Variable(0))))));
+		Term s = new Lambda(new Lambda(new Lambda(new Apply(new Apply(
+				new Variable(2), new Variable(0)), new Apply(new Variable(1),
+				new Variable(0))))));
 		print(s);
 
 		Term k = new Lambda(new Lambda(new Variable(1)));
