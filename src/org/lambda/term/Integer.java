@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-public class Integer<LIT> extends Literal<LIT> {
+public class Integer<LIT> extends Term<LIT> {
 	public final int value;
 
 	public Integer(int value) {
@@ -12,8 +12,27 @@ public class Integer<LIT> extends Literal<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
-			Context<DATA> context) {
+	public int getExtent() {
+		return 0;
+	}
+
+	@Override
+	public int getOccurences(int index) {
+		return 0;
+	}
+
+	@Override
+	public Term<LIT> increment(int limit) {
+		return this;
+	}
+
+	@Override
+	public Term<LIT> decrement(int limit) {
+		return this;
+	}
+
+	@Override
+	public <DATA> DATA evaluate(Executor<DATA, LIT> executor, Context<DATA> context) {
 		return executor.integer(value);
 	}
 }
