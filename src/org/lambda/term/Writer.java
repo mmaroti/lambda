@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-public class Rewriter<LIT> extends Executor<Term<LIT>, LIT> {
+public class Writer<LIT> extends Executor<Term<LIT>, LIT> {
 	@Override
 	public Term<LIT> closure(Evaluable<LIT> function, Context<Term<LIT>> context) {
 		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0), increment(context));
@@ -25,29 +25,12 @@ public class Rewriter<LIT> extends Executor<Term<LIT>, LIT> {
 
 	@Override
 	public Term<LIT> apply(Term<LIT> func, Term<LIT> arg) {
-		if (func instanceof Lambda) {
-			Term<LIT> b = ((Lambda<LIT>) func).body;
-			if (b.getOccurences(0) <= 1 || arg instanceof Variable || arg instanceof Literal || arg instanceof Integer) {
-				Context<Term<LIT>> c = null;
-				for (int i = 0; i < b.getExtent() - 1; i++)
-					c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
-				if (b.getExtent() >= 1)
-					c = new Context<Term<LIT>>(arg, c);
-
-				return b.evaluate(this, c);
-			}
-		}
 		return new Apply<LIT>(func, arg);
 	}
 
 	@Override
 	public Term<LIT> addition(Term<LIT> left, Term<LIT> right) {
-		if (left instanceof Integer && right instanceof Integer) {
-			int a = ((Integer<LIT>) left).value;
-			int b = ((Integer<LIT>) right).value;
-			return new Integer<LIT>(a + b);
-		} else
-			return new Addition<LIT>(left, right);
+		return new Addition<LIT>(left, right);
 	}
 
 	@Override

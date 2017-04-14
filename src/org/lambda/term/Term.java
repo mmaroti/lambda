@@ -28,6 +28,14 @@ public abstract class Term<LIT> extends Evaluable<LIT> {
 		return evaluate(new Rewriter<LIT>(), c);
 	}
 
+	public Term<LIT> write() {
+		Context<Term<LIT>> c = null;
+		for (int i = getExtent() - 1; i >= 0; i--)
+			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
+
+		return evaluate(new Writer<LIT>(), c);
+	}
+
 	@Override
 	public String toString() {
 		Context<Printer.Data> c = null;
