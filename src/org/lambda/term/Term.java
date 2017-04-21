@@ -19,29 +19,4 @@ public abstract class Term<LIT> extends Evaluable<LIT> {
 	 * Decrements the indices of the unbound variables greater than the limit
 	 */
 	public abstract Term<LIT> decrement(int limit);
-
-	public Term<LIT> rewrite() {
-		Context<Term<LIT>> c = null;
-		for (int i = getExtent() - 1; i >= 0; i--)
-			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
-
-		return evaluate(new Rewriter<LIT>(), c);
-	}
-
-	public Term<LIT> write() {
-		Context<Term<LIT>> c = null;
-		for (int i = getExtent() - 1; i >= 0; i--)
-			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
-
-		return evaluate(new Writer<LIT>(), c);
-	}
-
-	@Override
-	public String toString() {
-		Context<Printer.Data> c = null;
-		for (int i = 0; i < getExtent(); i++)
-			c = new Context<Printer.Data>(Printer.variable(i), c);
-
-		return evaluate(new Printer<LIT>(), c).value;
-	}
 }

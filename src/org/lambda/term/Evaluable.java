@@ -13,6 +13,30 @@ public abstract class Evaluable<LIT> {
 	/**
 	 * Evaluates this function with the given executor and context
 	 */
-	public abstract <DATA> DATA evaluate(Executor<DATA, LIT> executor,
-			Context<DATA> context);
+	public abstract <DATA> DATA evaluate(Executor<DATA, LIT> executor, Context<DATA> context);
+
+	public Term<LIT> rewrite() {
+		Context<Term<LIT>> c = null;
+		for (int i = getExtent() - 1; i >= 0; i--)
+			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
+
+		return evaluate(new Rewriter<LIT>(), c);
+	}
+
+	public Term<LIT> write() {
+		Context<Term<LIT>> c = null;
+		for (int i = getExtent() - 1; i >= 0; i--)
+			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
+
+		return evaluate(new Writer<LIT>(), c);
+	}
+
+	@Override
+	public String toString() {
+		Context<Printer.Data> c = null;
+		for (int i = 0; i < getExtent(); i++)
+			c = new Context<Printer.Data>(Printer.variable(i), c);
+
+		return evaluate(new Printer<LIT>(), c).value;
+	}
 }
