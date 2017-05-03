@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-public class Writer<LIT> extends Executor<Term<LIT>, LIT> {
+public class WriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 	@Override
 	public Term<LIT> closure(Evaluable<LIT> function, Context<Term<LIT>> context) {
 		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0), increment(context));

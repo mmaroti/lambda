@@ -28,7 +28,7 @@ public abstract class Evaluable<LIT> {
 		for (int i = getExtent() - 1; i >= 0; i--)
 			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
 
-		return evaluate(new Writer<LIT>(), c);
+		return evaluate(new WriterExec<LIT>(), c);
 	}
 
 	@Override
