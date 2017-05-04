@@ -77,6 +77,12 @@ public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
 	}
 
 	@Override
+	public Data pair(Data left, Data right) {
+		return new Data(Data.ATOM, Math.max(left.extent, right.extent), "("
+				+ left.format(Data.ATOM) + "," + right.format(Data.ATOM) + ")");
+	}
+
+	@Override
 	public Data addition(Data left, Data right) {
 		return new Data(Data.SUM, Math.max(left.extent, right.extent),
 				left.format(Data.SUM) + " + " + right.format(Data.SUM));

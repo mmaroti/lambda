@@ -32,6 +32,11 @@ public class IdentityExec<DATA, LIT> extends Executor<DATA, LIT> {
 	}
 
 	@Override
+	public DATA pair(DATA left, DATA right) {
+		return executor.pair(left, right);
+	}
+
+	@Override
 	public DATA addition(DATA left, DATA right) {
 		return executor.addition(left, right);
 	}

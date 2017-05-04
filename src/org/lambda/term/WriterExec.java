@@ -42,6 +42,11 @@ public class WriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 	}
 
 	@Override
+	public Term<LIT> pair(Term<LIT> left, Term<LIT> right) {
+		return new Pair<LIT>(left, right);
+	}
+
+	@Override
 	public Term<LIT> addition(Term<LIT> left, Term<LIT> right) {
 		return new Addition<LIT>(left, right);
 	}

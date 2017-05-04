@@ -42,6 +42,7 @@ public class RewriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 			Term<LIT> b = ((Lambda<LIT>) func).body;
 			if (b.getOccurences(0) <= 1 || arg instanceof Variable
 					|| arg instanceof Literal || arg instanceof Integer) {
+				// TODO: is this the same as evaluate?
 				Context<Term<LIT>> c = null;
 				for (int i = 0; i < b.getExtent() - 1; i++)
 					c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
@@ -52,6 +53,11 @@ public class RewriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 			}
 		}
 		return new Apply<LIT>(func, arg);
+	}
+
+	@Override
+	public Term<LIT> pair(Term<LIT> left, Term<LIT> right) {
+		return new Pair<LIT>(left, right);
 	}
 
 	@Override

@@ -5,12 +5,6 @@
 package org.lambda.term;
 
 public class TestLang {
-	public static final String PRIM_ADD = "+";
-	public static final String PRIM_PROD = "*";
-	public static final String PRIM_AND = "&";
-	public static final String PRIM_OR = "|";
-	public static final String PRIM_NOT = "!";
-
 	private static WriterExec<Object> WRITER = new WriterExec<Object>();
 	private static RewriterExec<Object> REWRITER = new RewriterExec<Object>();
 
