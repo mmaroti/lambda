@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
 public class Pair<LIT> extends Binary<LIT> {
 	public Pair(Term<LIT> left, Term<LIT> right) {
@@ -17,10 +17,10 @@ public class Pair<LIT> extends Binary<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
-		DATA a = left.evaluate(executor, context);
-		DATA b = right.evaluate(executor, context);
-		return executor.pair(a, b);
+		DATA a = left.evaluate(evaluator, context);
+		DATA b = right.evaluate(evaluator, context);
+		return evaluator.pair(a, b);
 	}
 }

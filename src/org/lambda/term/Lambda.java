@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
 public class Lambda<LIT> extends Term<LIT> {
 	public final Term<LIT> body;
@@ -43,8 +43,8 @@ public class Lambda<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
-		return executor.closure(body, context);
+		return evaluator.closure(body, context);
 	}
 }

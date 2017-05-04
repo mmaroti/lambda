@@ -4,9 +4,15 @@
 
 package org.lambda.term;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
-public class RewriterExec<LIT> extends Executor<Term<LIT>, LIT> {
+public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
+	public final Evaluator<LIT, LIT> calculator;
+
+	public PartialEval(Evaluator<LIT, LIT> calculator) {
+		this.calculator = calculator;
+	}
+
 	@Override
 	public Term<LIT> evaluate(Evaluable<LIT> evaluable) {
 		Context<Term<LIT>> c = null;
@@ -32,42 +38,34 @@ public class RewriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> integer(int value) {
-		return new Integer<LIT>(value);
-	}
-
-	@Override
 	public Term<LIT> apply(Term<LIT> func, Term<LIT> arg) {
 		if (func instanceof Lambda) {
 			Term<LIT> b = ((Lambda<LIT>) func).body;
 			if (b.getOccurences(0) <= 1 || arg instanceof Variable
-					|| arg instanceof Literal || arg instanceof Integer) {
-				// TODO: is this the same as evaluate?
+					|| arg instanceof Literal) {
 				Context<Term<LIT>> c = null;
 				for (int i = 0; i < b.getExtent() - 1; i++)
 					c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
-				if (b.getExtent() >= 1)
-					c = new Context<Term<LIT>>(arg, c);
+				c = new Context<Term<LIT>>(arg, c);
 
 				return b.evaluate(this, c);
 			}
+		} else if (func instanceof Literal && arg instanceof Literal) {
+			Literal<LIT> f = (Literal<LIT>) func;
+			Literal<LIT> a = (Literal<LIT>) arg;
+			return new Literal<LIT>(calculator.apply(f.value, a.value));
 		}
 		return new Apply<LIT>(func, arg);
 	}
 
 	@Override
 	public Term<LIT> pair(Term<LIT> left, Term<LIT> right) {
-		return new Pair<LIT>(left, right);
-	}
-
-	@Override
-	public Term<LIT> addition(Term<LIT> left, Term<LIT> right) {
-		if (left instanceof Integer && right instanceof Integer) {
-			int a = ((Integer<LIT>) left).value;
-			int b = ((Integer<LIT>) right).value;
-			return new Integer<LIT>(a + b);
+		if (left instanceof Literal && right instanceof Literal) {
+			Literal<LIT> l = (Literal<LIT>) left;
+			Literal<LIT> r = (Literal<LIT>) right;
+			return new Literal<LIT>(calculator.pair(l.value, r.value));
 		} else
-			return new Addition<LIT>(left, right);
+			return new Pair<LIT>(left, right);
 	}
 
 	@Override

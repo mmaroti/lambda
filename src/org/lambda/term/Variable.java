@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
 public class Variable<LIT> extends Term<LIT> {
 	public final int index;
@@ -43,7 +43,7 @@ public class Variable<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
 		for (int i = 0; i < index; i++)
 			context = context.parent;

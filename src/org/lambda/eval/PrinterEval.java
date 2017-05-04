@@ -2,16 +2,14 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.exec;
+package org.lambda.eval;
 
-public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
-	public static PrinterExec<Object> INSTANCE = new PrinterExec<Object>();
+public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
+	public static PrinterEval<Object> INSTANCE = new PrinterEval<Object>();
 
 	public static class Data {
 		public final static int ATOM = 0;
 		public final static int APPLY = 1;
-		public final static int PROD = 2;
-		public final static int SUM = 3;
 		public final static int LAMBDA = 4;
 
 		public final int precedence;
@@ -50,7 +48,7 @@ public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
 	public Data evaluate(Evaluable<LIT> evaluable) {
 		Context<Data> c = null;
 		for (int i = 0; i < evaluable.getExtent(); i++)
-			c = new Context<PrinterExec.Data>(variable(i), c);
+			c = new Context<PrinterEval.Data>(variable(i), c);
 
 		return evaluable.evaluate(this, c);
 	}
@@ -66,11 +64,6 @@ public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
 	}
 
 	@Override
-	public Data integer(int value) {
-		return new Data(Data.ATOM, 0, java.lang.Integer.toString(value));
-	}
-
-	@Override
 	public Data apply(Data func, Data arg) {
 		return new Data(Data.APPLY, Math.max(func.extent, arg.extent),
 				func.format(Data.APPLY) + " " + arg.format(Data.APPLY - 1));
@@ -79,13 +72,7 @@ public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
 	@Override
 	public Data pair(Data left, Data right) {
 		return new Data(Data.ATOM, Math.max(left.extent, right.extent), "("
-				+ left.format(Data.ATOM) + "," + right.format(Data.ATOM) + ")");
-	}
-
-	@Override
-	public Data addition(Data left, Data right) {
-		return new Data(Data.SUM, Math.max(left.extent, right.extent),
-				left.format(Data.SUM) + " + " + right.format(Data.SUM));
+				+ left.format(Data.ATOM) + ", " + right.format(Data.ATOM) + ")");
 	}
 
 	@Override

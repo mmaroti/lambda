@@ -2,12 +2,12 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.exec;
+package org.lambda.eval;
 
-public class IdentityExec<DATA, LIT> extends Executor<DATA, LIT> {
-	private final Executor<DATA, LIT> executor;
+public class IdentityEval<DATA, LIT> extends Evaluator<DATA, LIT> {
+	private final Evaluator<DATA, LIT> executor;
 
-	public IdentityExec(Executor<DATA, LIT> executor) {
+	public IdentityEval(Evaluator<DATA, LIT> executor) {
 		this.executor = executor;
 	}
 
@@ -22,11 +22,6 @@ public class IdentityExec<DATA, LIT> extends Executor<DATA, LIT> {
 	}
 
 	@Override
-	public DATA integer(int value) {
-		return executor.integer(value);
-	}
-
-	@Override
 	public DATA apply(DATA func, DATA arg) {
 		return executor.apply(func, arg);
 	}
@@ -34,11 +29,6 @@ public class IdentityExec<DATA, LIT> extends Executor<DATA, LIT> {
 	@Override
 	public DATA pair(DATA left, DATA right) {
 		return executor.pair(left, right);
-	}
-
-	@Override
-	public DATA addition(DATA left, DATA right) {
-		return executor.addition(left, right);
 	}
 
 	@Override

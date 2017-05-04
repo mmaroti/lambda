@@ -4,9 +4,9 @@
 
 package org.lambda.data;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
-public class InterpreterExec extends Executor<Data, Data> {
+public class CalculatorEval extends Evaluator<Data, Data> {
 	@Override
 	public Data evaluate(Evaluable<Data> evaluable) {
 		return evaluable.evaluate(this, null);
@@ -18,26 +18,14 @@ public class InterpreterExec extends Executor<Data, Data> {
 	}
 
 	@Override
-	public Data integer(int value) {
-		return new IntData(value);
-	}
-
-	@Override
 	public Data apply(Data func, Data arg) {
-		Function f = (Function) func;
+		FunData f = (FunData) func;
 		return f.call(arg);
 	}
 
 	@Override
 	public Data pair(Data left, Data right) {
-		return new Pair(left, right);
-	}
-
-	@Override
-	public Data addition(Data left, Data right) {
-		IntData a = (IntData) left;
-		IntData b = (IntData) right;
-		return new IntData(a.value + b.value);
+		return new PairData(left, right);
 	}
 
 	@Override

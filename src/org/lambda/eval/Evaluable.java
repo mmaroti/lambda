@@ -2,7 +2,7 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.exec;
+package org.lambda.eval;
 
 public abstract class Evaluable<LIT> {
 	/**
@@ -13,13 +13,13 @@ public abstract class Evaluable<LIT> {
 	/**
 	 * Evaluates this function with the given executor and context
 	 */
-	public abstract <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+	public abstract <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context);
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public String toString() {
-		PrinterExec<LIT> printer = (PrinterExec<LIT>) PrinterExec.INSTANCE;
+		PrinterEval<LIT> printer = (PrinterEval<LIT>) PrinterEval.INSTANCE;
 		return printer.evaluate(this).value;
 	}
 }

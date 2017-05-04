@@ -4,7 +4,7 @@
 
 package org.lambda.term;
 
-import org.lambda.exec.*;
+import org.lambda.eval.*;
 
 public abstract class Term<LIT> extends Evaluable<LIT> {
 	/**
