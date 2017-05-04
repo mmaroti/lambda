@@ -4,10 +4,22 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class WriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 	@Override
+	public Term<LIT> evaluate(Evaluable<LIT> evaluable) {
+		Context<Term<LIT>> c = null;
+		for (int i = evaluable.getExtent() - 1; i >= 0; i--)
+			c = new Context<Term<LIT>>(new Variable<LIT>(i), c);
+
+		return evaluable.evaluate(this, c);
+	}
+
+	@Override
 	public Term<LIT> closure(Evaluable<LIT> function, Context<Term<LIT>> context) {
-		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0), increment(context));
+		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0),
+				increment(context));
 		return new Lambda<LIT>(function.evaluate(this, c));
 	}
 
@@ -15,7 +27,8 @@ public class WriterExec<LIT> extends Executor<Term<LIT>, LIT> {
 		if (context == null)
 			return context;
 
-		return new Context<Term<LIT>>(context.data.increment(0), increment(context.parent));
+		return new Context<Term<LIT>>(context.data.increment(0),
+				increment(context.parent));
 	}
 
 	@Override

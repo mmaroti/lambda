@@ -4,7 +4,8 @@
 
 package org.lambda.code;
 
-import org.lambda.term.Context;
+import org.lambda.exec.Context;
+
 import java.util.*;
 
 public abstract class Interpreter<DATA> {

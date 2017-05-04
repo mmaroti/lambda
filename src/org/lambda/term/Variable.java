@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class Variable<LIT> extends Term<LIT> {
 	public final int index;
 

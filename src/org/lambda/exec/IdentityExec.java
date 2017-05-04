@@ -2,19 +2,18 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.term;
+package org.lambda.exec;
 
-public class ConstantFolding<DATA, LIT> extends Executor<DATA, LIT> {
-	public interface Config<LIT> {
-		public boolean isUnaryOp(LIT lit);
+public class IdentityExec<DATA, LIT> extends Executor<DATA, LIT> {
+	private final Executor<DATA, LIT> executor;
+
+	public IdentityExec(Executor<DATA, LIT> executor) {
+		this.executor = executor;
 	}
 
-	private final Executor<DATA, LIT> executor;
-	private final Config<DATA> config;
-
-	public ConstantFolding(Executor<DATA, LIT> executor, Config<DATA> config) {
-		this.executor = executor;
-		this.config = config;
+	@Override
+	public DATA evaluate(Evaluable<LIT> evaluable) {
+		return executor.evaluate(evaluable);
 	}
 
 	@Override
@@ -33,8 +32,8 @@ public class ConstantFolding<DATA, LIT> extends Executor<DATA, LIT> {
 	}
 
 	@Override
-	public DATA addition(DATA func, DATA arg) {
-		return executor.addition(func, arg);
+	public DATA addition(DATA left, DATA right) {
+		return executor.addition(left, right);
 	}
 
 	@Override

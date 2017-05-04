@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public abstract class Term<LIT> extends Evaluable<LIT> {
 	/**
 	 * The number of occurrences of the given variable

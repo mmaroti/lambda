@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class Lambda<LIT> extends Term<LIT> {
 	public final Term<LIT> body;
 

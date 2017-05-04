@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class Integer<LIT> extends Term<LIT> {
 	public final int value;
 
@@ -32,7 +34,8 @@ public class Integer<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor, Context<DATA> context) {
+	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+			Context<DATA> context) {
 		return executor.integer(value);
 	}
 }

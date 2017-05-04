@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class Apply<LIT> extends Binary<LIT> {
 	public Apply(Term<LIT> left, Term<LIT> right) {
 		super(left, right);

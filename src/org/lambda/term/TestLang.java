@@ -11,10 +11,13 @@ public class TestLang {
 	public static final String PRIM_OR = "|";
 	public static final String PRIM_NOT = "!";
 
+	private static WriterExec<Object> WRITER = new WriterExec<Object>();
+	private static RewriterExec<Object> REWRITER = new RewriterExec<Object>();
+
 	public static void print(Term<Object> term) {
 		System.out.println(term);
-		// System.out.println(term.write());
-		System.out.println(term.rewrite());
+		System.out.println(WRITER.evaluate(term));
+		System.out.println(REWRITER.evaluate(term));
 		System.out.println();
 	}
 

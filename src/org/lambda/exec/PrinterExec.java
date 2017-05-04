@@ -2,9 +2,11 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.term;
+package org.lambda.exec;
 
-public class Printer<LIT> extends Executor<Printer.Data, LIT> {
+public class PrinterExec<LIT> extends Executor<PrinterExec.Data, LIT> {
+	public static PrinterExec<Object> INSTANCE = new PrinterExec<Object>();
+
 	public static class Data {
 		public final static int ATOM = 0;
 		public final static int APPLY = 1;
@@ -42,6 +44,15 @@ public class Printer<LIT> extends Executor<Printer.Data, LIT> {
 			context = context.parent;
 		}
 		return a;
+	}
+
+	@Override
+	public Data evaluate(Evaluable<LIT> evaluable) {
+		Context<Data> c = null;
+		for (int i = 0; i < evaluable.getExtent(); i++)
+			c = new Context<PrinterExec.Data>(variable(i), c);
+
+		return evaluable.evaluate(this, c);
 	}
 
 	@Override

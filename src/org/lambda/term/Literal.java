@@ -4,6 +4,8 @@
 
 package org.lambda.term;
 
+import org.lambda.exec.*;
+
 public class Literal<LIT> extends Term<LIT> {
 	public final LIT value;
 
@@ -32,7 +34,8 @@ public class Literal<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Executor<DATA, LIT> executor, Context<DATA> context) {
+	public <DATA> DATA evaluate(Executor<DATA, LIT> executor,
+			Context<DATA> context) {
 		return executor.literal(value);
 	}
 }

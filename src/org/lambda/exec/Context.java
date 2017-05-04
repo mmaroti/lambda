@@ -2,7 +2,7 @@
  * Copyright (C) Miklos Maroti, 2016-2017
  */
 
-package org.lambda.term;
+package org.lambda.exec;
 
 public class Context<DATA> {
 	public final DATA data;
