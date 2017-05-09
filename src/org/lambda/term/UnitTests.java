@@ -21,18 +21,17 @@ public class UnitTests {
 	}
 
 	public static void test1() {
-		Term<Data> a = new Apply<Data>(new Literal<Data>(FunData.INT_ADD),
-				new Pair<Data>(new Literal<Data>(new IntData(1)),
-						new Literal<Data>(new IntData(2))));
+		Term<Data> a = new BinaryOp<Data>(OpData.INT_ADD, new Literal<Data>(
+				new IntData(1)), new Literal<Data>(new IntData(2)));
 		print(a);
 
-		Term<Data> b = new Apply<Data>(new Literal<Data>(FunData.INT_ADD),
+		Term<Data> b = new Apply<Data>(new Literal<Data>(OpData.INT_ADD),
 				new Pair<Data>(new Variable<Data>(1), new Variable<Data>(0)));
 		print(b);
 
-		Term<Data> c = new Apply<Data>(new Literal<Data>(FunData.INT_ADD),
+		Term<Data> c = new Apply<Data>(new Literal<Data>(OpData.INT_ADD),
 				new Pair<Data>(new Variable<Data>(1), new Apply<Data>(
-						new Literal<Data>(FunData.INT_ADD), new Pair<Data>(
+						new Literal<Data>(OpData.INT_ADD), new Pair<Data>(
 								new Variable<Data>(0), new Variable<Data>(0)))));
 		print(c);
 

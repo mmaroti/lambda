@@ -45,4 +45,14 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
+
+	@Override
+	public Term<LIT> unaryop(LIT func, Term<LIT> arg) {
+		return new UnaryOp<LIT>(func, arg);
+	}
+
+	@Override
+	public Term<LIT> binaryop(LIT func, Term<LIT> arg1, Term<LIT> arg2) {
+		return new BinaryOp<LIT>(func, arg1, arg2);
+	}
 }

@@ -72,4 +72,24 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
+
+	@Override
+	public Term<LIT> unaryop(LIT func, Term<LIT> arg) {
+		if (arg instanceof Literal) {
+			Literal<LIT> a = (Literal<LIT>) arg;
+			return new Literal<LIT>(calculator.unaryop(func, a.value));
+		} else
+			return new UnaryOp<LIT>(func, arg);
+	}
+
+	@Override
+	public Term<LIT> binaryop(LIT func, Term<LIT> arg1, Term<LIT> arg2) {
+		if (arg1 instanceof Literal && arg2 instanceof Literal) {
+			Literal<LIT> a1 = (Literal<LIT>) arg1;
+			Literal<LIT> a2 = (Literal<LIT>) arg2;
+			return new Literal<LIT>(calculator.binaryop(func, a1.value,
+					a2.value));
+		} else
+			return new BinaryOp<LIT>(func, arg1, arg2);
+	}
 }

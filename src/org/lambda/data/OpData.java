@@ -4,10 +4,10 @@
 
 package org.lambda.data;
 
-public abstract class FunData extends Data {
+public abstract class OpData extends Data {
 	public final String symbol;
 
-	public FunData(String symbol) {
+	public OpData(String symbol) {
 		this.symbol = symbol;
 	}
 
@@ -16,9 +16,15 @@ public abstract class FunData extends Data {
 		return symbol;
 	}
 
-	public abstract Data call(Data arg);
+	public static abstract class Unary extends OpData {
+		public Unary(String symbol) {
+			super(symbol);
+		}
 
-	public static final FunData BOOL_NEG = new FunData("b!") {
+		public abstract Data call(Data arg);
+	}
+
+	public static final Unary BOOL_NEG = new Unary("b!") {
 		@Override
 		public Data call(Data arg) {
 			BoolData a = (BoolData) arg;
@@ -26,7 +32,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData INT_NEG = new FunData("i-") {
+	public static final Unary INT_NEG = new Unary("i-") {
 		@Override
 		public Data call(Data arg) {
 			IntData a = (IntData) arg;
@@ -34,7 +40,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData PAIR_FST = new FunData("p1") {
+	public static final Unary PAIR_FST = new Unary("p1") {
 		@Override
 		public Data call(Data arg) {
 			PairData a = (PairData) arg;
@@ -42,7 +48,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData PAIR_SND = new FunData("p2") {
+	public static final Unary PAIR_SND = new Unary("p2") {
 		@Override
 		public Data call(Data arg) {
 			PairData a = (PairData) arg;
@@ -50,21 +56,15 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	private static abstract class BinaryOp extends FunData {
-		public BinaryOp(String symbol) {
+	public static abstract class Binary extends OpData {
+		public Binary(String symbol) {
 			super(symbol);
 		}
 
 		public abstract Data call(Data arg1, Data arg2);
-
-		@Override
-		public Data call(Data arg) {
-			PairData pair = (PairData) arg;
-			return call(pair.left, pair.right);
-		}
 	}
 
-	public static final FunData BOOL_AND = new BinaryOp("b&") {
+	public static final Binary BOOL_AND = new Binary("b&") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			BoolData a = (BoolData) arg1;
@@ -72,7 +72,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData BOOL_OR = new BinaryOp("b|") {
+	public static final Binary BOOL_OR = new Binary("b|") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			BoolData a = (BoolData) arg1;
@@ -80,7 +80,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData BOOL_EQU = new BinaryOp("b=") {
+	public static final Binary BOOL_EQU = new Binary("b=") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			BoolData a1 = (BoolData) arg1;
@@ -89,7 +89,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData INT_ADD = new BinaryOp("i+") {
+	public static final Binary INT_ADD = new Binary("i+") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			IntData a1 = (IntData) arg1;
@@ -98,7 +98,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData INT_MUL = new BinaryOp("i+") {
+	public static final Binary INT_MUL = new Binary("i+") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			IntData a1 = (IntData) arg1;
@@ -107,7 +107,7 @@ public abstract class FunData extends Data {
 		}
 	};
 
-	public static final FunData INT_EQU = new BinaryOp("i=") {
+	public static final Binary INT_EQU = new Binary("i=") {
 		@Override
 		public Data call(Data arg1, Data arg2) {
 			IntData a1 = (IntData) arg1;

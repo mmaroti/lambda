@@ -7,11 +7,12 @@ package org.lambda.eval;
 public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	public static PrinterEval<Object> INSTANCE = new PrinterEval<Object>();
 
-	public static class Data {
-		public final static int ATOM = 0;
-		public final static int APPLY = 1;
-		public final static int LAMBDA = 4;
+	private final static int ATOM = 0;
+	private final static int APPLY = 1;
+	private final static int LAMBDA = 4;
+	private final static int OPARG = 5;
 
+	public static class Data {
 		public final int precedence;
 		public final int extent;
 		public final String value;
@@ -32,7 +33,7 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 
 	public static Data variable(int index) {
 		String name = Character.toString((char) ('a' + index));
-		return new Data(Data.ATOM, index + 1, name);
+		return new Data(ATOM, index + 1, name);
 	}
 
 	private int getExtent(Context<Data> context) {
@@ -59,24 +60,36 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 		Data var = variable(ext);
 		Data body = function.evaluate(this, new Context<Data>(var, context));
 
-		return new Data(Data.LAMBDA, ext, var.value + " -> "
-				+ body.format(Data.LAMBDA));
+		return new Data(LAMBDA, ext, var.value + " -> " + body.format(LAMBDA));
 	}
 
 	@Override
 	public Data apply(Data func, Data arg) {
-		return new Data(Data.APPLY, Math.max(func.extent, arg.extent),
-				func.format(Data.APPLY) + " " + arg.format(Data.APPLY - 1));
+		return new Data(APPLY, Math.max(func.extent, arg.extent),
+				func.format(APPLY) + " " + arg.format(APPLY - 1));
 	}
 
 	@Override
 	public Data pair(Data left, Data right) {
-		return new Data(Data.ATOM, Math.max(left.extent, right.extent), "("
-				+ left.format(Data.ATOM) + ", " + right.format(Data.ATOM) + ")");
+		return new Data(ATOM, Math.max(left.extent, right.extent), "("
+				+ left.format(ATOM) + ", " + right.format(ATOM) + ")");
 	}
 
 	@Override
 	public Data literal(LIT value) {
-		return new Data(Data.ATOM, 0, value.toString());
+		return new Data(ATOM, 0, value.toString());
+	}
+
+	@Override
+	public Data unaryop(LIT func, Data arg) {
+		return new Data(ATOM, arg.extent, "(" + func.toString() + " "
+				+ arg.format(OPARG) + ")");
+	}
+
+	@Override
+	public Data binaryop(LIT func, Data arg1, Data arg2) {
+		return new Data(ATOM, Math.max(arg1.extent, arg2.extent), "("
+				+ func.toString() + " " + arg1.format(OPARG) + " "
+				+ arg2.format(OPARG) + ")");
 	}
 }
