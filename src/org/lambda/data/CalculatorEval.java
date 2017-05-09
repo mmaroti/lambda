@@ -43,14 +43,8 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	}
 
 	@Override
-	public Data unaryop(Data func, Data arg) {
-		OpData.Unary f = (OpData.Unary) func;
-		return f.call(arg);
-	}
-
-	@Override
-	public Data binaryop(Data func, Data arg1, Data arg2) {
-		OpData.Binary f = (OpData.Binary) func;
-		return f.call(arg1, arg2);
+	public Data operator(Data func, Data[] args) {
+		OpData f = (OpData) func;
+		return f.call(args);
 	}
 }

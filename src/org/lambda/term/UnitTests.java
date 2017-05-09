@@ -21,7 +21,7 @@ public class UnitTests {
 	}
 
 	public static void test1() {
-		Term<Data> a = new BinaryOp<Data>(OpData.INT_ADD, new Literal<Data>(
+		Term<Data> a = new Operator<Data>(OpData.INT_ADD, new Literal<Data>(
 				new IntData(1)), new Literal<Data>(new IntData(2)));
 		print(a);
 

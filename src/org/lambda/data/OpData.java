@@ -16,9 +16,18 @@ public abstract class OpData extends Data {
 		return symbol;
 	}
 
+	public abstract Data call(Data[] args);
+
 	public static abstract class Unary extends OpData {
 		public Unary(String symbol) {
 			super(symbol);
+		}
+
+		public Data call(Data[] args) {
+			if (args.length == 1)
+				return call(args[0]);
+			else
+				throw new IllegalArgumentException();
 		}
 
 		public abstract Data call(Data arg);
@@ -59,6 +68,13 @@ public abstract class OpData extends Data {
 	public static abstract class Binary extends OpData {
 		public Binary(String symbol) {
 			super(symbol);
+		}
+
+		public Data call(Data[] args) {
+			if (args.length == 2)
+				return call(args[0], args[1]);
+			else
+				throw new IllegalArgumentException();
 		}
 
 		public abstract Data call(Data arg1, Data arg2);

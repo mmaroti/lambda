@@ -37,12 +37,7 @@ public class IdentityEval<DATA, LIT> extends Evaluator<DATA, LIT> {
 	}
 
 	@Override
-	public DATA unaryop(LIT func, DATA arg) {
-		return executor.unaryop(func, arg);
-	}
-
-	@Override
-	public DATA binaryop(LIT func, DATA arg1, DATA arg2) {
-		return executor.binaryop(func, arg1, arg2);
+	public DATA operator(LIT func, DATA[] args) {
+		return executor.operator(func, args);
 	}
 }

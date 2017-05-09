@@ -15,7 +15,5 @@ public abstract class Evaluator<DATA, LIT> {
 
 	public abstract DATA literal(LIT value);
 
-	public abstract DATA unaryop(LIT func, DATA arg);
-
-	public abstract DATA binaryop(LIT func, DATA arg1, DATA arg2);
+	public abstract DATA operator(LIT func, DATA[] args);
 }

@@ -10,7 +10,6 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	private final static int ATOM = 0;
 	private final static int APPLY = 1;
 	private final static int LAMBDA = 4;
-	private final static int OPARG = 5;
 
 	public static class Data {
 		public final int precedence;
@@ -81,15 +80,18 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	}
 
 	@Override
-	public Data unaryop(LIT func, Data arg) {
-		return new Data(ATOM, arg.extent, "(" + func.toString() + " "
-				+ arg.format(OPARG) + ")");
-	}
+	public Data operator(LIT func, Data[] args) {
+		int e = 0;
 
-	@Override
-	public Data binaryop(LIT func, Data arg1, Data arg2) {
-		return new Data(ATOM, Math.max(arg1.extent, arg2.extent), "("
-				+ func.toString() + " " + arg1.format(OPARG) + " "
-				+ arg2.format(OPARG) + ")");
+		String s = func.toString() + "(";
+		for (int i = 0; i < args.length; i++) {
+			e = Math.max(e, args[i].extent);
+			if (i > 0)
+				s += ',';
+			s += args[i].format(ATOM);
+		}
+		s += ")";
+
+		return new Data(ATOM, e, s);
 	}
 }
