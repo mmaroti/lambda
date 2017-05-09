@@ -29,11 +29,6 @@ public class Literal<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public Term<LIT> decrement(int limit) {
-		return this;
-	}
-
-	@Override
 	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
 		return evaluator.literal(value);

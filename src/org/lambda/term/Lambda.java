@@ -34,15 +34,6 @@ public class Lambda<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public Term<LIT> decrement(int limit) {
-		Term<LIT> b = body.decrement(limit + 1);
-		if (b == body)
-			return this;
-		else
-			return new Lambda<LIT>(b);
-	}
-
-	@Override
 	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
 		return evaluator.closure(body, context);

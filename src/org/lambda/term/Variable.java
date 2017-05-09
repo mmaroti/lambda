@@ -33,16 +33,6 @@ public class Variable<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public Term<LIT> decrement(int limit) {
-		if (index < limit)
-			return this;
-		else if (index > limit)
-			return new Variable<LIT>(index - 1);
-		else
-			throw new IllegalStateException();
-	}
-
-	@Override
 	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
 			Context<DATA> context) {
 		for (int i = 0; i < index; i++)

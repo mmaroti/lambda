@@ -16,9 +16,4 @@ public abstract class Term<LIT> extends Evaluable<LIT> {
 	 * Increments the indices of the unbound variables greater than the limit
 	 */
 	public abstract Term<LIT> increment(int limit);
-
-	/**
-	 * Decrements the indices of the unbound variables greater than the limit
-	 */
-	public abstract Term<LIT> decrement(int limit);
 }
