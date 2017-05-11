@@ -8,8 +8,8 @@ import org.lambda.data.*;
 
 public class UnitTests {
 	private static WriterEval<Data> WRITER = new WriterEval<Data>();
-	private static CalculatorEval CALCULATOR = new CalculatorEval();
-	private static PartialEval<Data> PARTIAL = new PartialEval<Data>(CALCULATOR);
+	private static InterpreterEval INTERPRETER = new InterpreterEval();
+	private static PartialEval<Data> PARTIAL = new PartialEval<Data>(INTERPRETER);
 
 	public static void print(Term<Data> term) {
 		System.out.println(term);

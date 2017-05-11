@@ -6,7 +6,7 @@ package org.lambda.data;
 
 import org.lambda.eval.*;
 
-public class CalculatorEval extends Evaluator<Data, Data> {
+public class InterpreterEval extends Evaluator<Data, Data> {
 	@Override
 	public Data evaluate(Evaluable<Data> evaluable) {
 		assert evaluable.getExtent() == 0;
@@ -14,8 +14,13 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	}
 
 	@Override
-	public Data closure(Data type, Evaluable<Data> body, Context<Data> context) {
-		throw new UnsupportedOperationException();
+	public Data closure(Data type, final Evaluable<Data> body, final Context<Data> context) {
+		return new UnaryOp("closure?") {
+			@Override
+			public Data call(Data arg) {
+				return body.evaluate(InterpreterEval.this, new Context<Data>(arg, context));
+			}
+		};
 	}
 
 	@Override

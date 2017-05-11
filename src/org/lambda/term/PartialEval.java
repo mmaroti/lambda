@@ -7,10 +7,10 @@ package org.lambda.term;
 import org.lambda.eval.*;
 
 public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
-	public final Evaluator<LIT, LIT> calculator;
+	public final Evaluator<LIT, LIT> interpreter;
 
-	public PartialEval(Evaluator<LIT, LIT> calculator) {
-		this.calculator = calculator;
+	public PartialEval(Evaluator<LIT, LIT> interpreter) {
+		this.interpreter = interpreter;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 		} else if (func instanceof Literal && arg instanceof Literal) {
 			Literal<LIT> f = (Literal<LIT>) func;
 			Literal<LIT> a = (Literal<LIT>) arg;
-			return new Literal<LIT>(calculator.apply(f.value, a.value));
+			return new Literal<LIT>(interpreter.apply(f.value, a.value));
 		}
 		return new Apply<LIT>(func, arg);
 	}
@@ -66,6 +66,6 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 
 	@Override
 	public Term<LIT> primitive(String prim) {
-		return new Literal<LIT>(calculator.primitive(prim));
+		return new Literal<LIT>(interpreter.primitive(prim));
 	}
 }
