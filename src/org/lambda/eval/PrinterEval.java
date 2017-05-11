@@ -78,20 +78,4 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	public Data literal(LIT value) {
 		return new Data(ATOM, 0, value.toString());
 	}
-
-	@Override
-	public Data operator(LIT func, Data[] args) {
-		int e = 0;
-
-		String s = func.toString() + "(";
-		for (int i = 0; i < args.length; i++) {
-			e = Math.max(e, args[i].extent);
-			if (i > 0)
-				s += ',';
-			s += args[i].format(ATOM);
-		}
-		s += ")";
-
-		return new Data(ATOM, e, s);
-	}
 }

@@ -14,6 +14,4 @@ public abstract class Evaluator<DATA, LIT> {
 	public abstract DATA pair(DATA left, DATA right);
 
 	public abstract DATA literal(LIT value);
-
-	public abstract DATA operator(LIT func, DATA[] args);
 }

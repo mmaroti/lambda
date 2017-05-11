@@ -10,7 +10,6 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	@Override
 	public Data evaluate(Evaluable<Data> evaluable) {
 		assert evaluable.getExtent() == 0;
-
 		return evaluable.evaluate(this, null);
 	}
 
@@ -21,15 +20,8 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 
 	@Override
 	public Data apply(Data func, Data arg) {
-		if (func instanceof OpData.Unary) {
-			OpData.Unary f = (OpData.Unary) func;
-			return f.call(arg);
-		} else if (func instanceof OpData.Binary && arg instanceof PairData) {
-			OpData.Binary f = (OpData.Binary) func;
-			PairData p = (PairData) arg;
-			return f.call(p.left, p.right);
-		} else
-			throw new UnsupportedOperationException();
+		UnaryOp f = (UnaryOp) func;
+		return f.call(arg);
 	}
 
 	@Override
@@ -40,11 +32,5 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	@Override
 	public Data literal(Data value) {
 		return value;
-	}
-
-	@Override
-	public Data operator(Data func, Data[] args) {
-		OpData f = (OpData) func;
-		return f.call(args);
 	}
 }

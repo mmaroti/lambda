@@ -72,17 +72,4 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Term<LIT> operator(LIT func, Term<LIT>[] args) {
-		LIT[] lits = (LIT[]) new Object[args.length];
-		for (int i = 0; i < args.length; i++) {
-			if (args[i] instanceof Literal)
-				lits[i] = ((Literal<LIT>) args[i]).value;
-			else
-				return new Operator<LIT>(func, args);
-		}
-		return new Literal<LIT>(calculator.operator(func, lits));
-	}
 }

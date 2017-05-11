@@ -35,9 +35,4 @@ public class IdentityEval<DATA, LIT> extends Evaluator<DATA, LIT> {
 	public DATA literal(LIT value) {
 		return executor.literal(value);
 	}
-
-	@Override
-	public DATA operator(LIT func, DATA[] args) {
-		return executor.operator(func, args);
-	}
 }
