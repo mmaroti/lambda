@@ -8,8 +8,9 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	public static PrinterEval<Object> INSTANCE = new PrinterEval<Object>();
 
 	private final static int ATOM = 0;
-	private final static int APPLY = 1;
-	private final static int LAMBDA = 4;
+	private final static int APPLY_ARG = 1;
+	private final static int APPLY = 2;
+	private final static int LAMBDA = 3;
 
 	public static class Data {
 		public final int precedence;
@@ -54,22 +55,23 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	}
 
 	@Override
-	public Data closure(Evaluable<LIT> function, Context<Data> context) {
+	public Data closure(Data type, Evaluable<LIT> body, Context<Data> context) {
 		int ext = getExtent(context);
-		Data var = variable(ext);
-		Data body = function.evaluate(this, new Context<Data>(var, context));
+		Data v = variable(ext);
+		Data b = body.evaluate(this, new Context<Data>(v, context));
 
-		return new Data(LAMBDA, ext, var.value + " -> " + body.format(LAMBDA));
+		return new Data(LAMBDA, ext, v.value + " : " + type.format(ATOM)
+				+ " -> " + b.format(LAMBDA));
 	}
 
 	@Override
 	public Data apply(Data func, Data arg) {
 		return new Data(APPLY, Math.max(func.extent, arg.extent),
-				func.format(APPLY) + " " + arg.format(APPLY - 1));
+				func.format(APPLY) + " " + arg.format(APPLY_ARG));
 	}
 
 	@Override
 	public Data literal(LIT value) {
-		return new Data(ATOM, 0, value.toString());
+		return new Data(ATOM, 0, value == null ? "null" : value.toString());
 	}
 }

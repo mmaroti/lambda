@@ -17,10 +17,11 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> closure(Evaluable<LIT> function, Context<Term<LIT>> context) {
+	public Term<LIT> closure(Term<LIT> type, Evaluable<LIT> body,
+			Context<Term<LIT>> context) {
 		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0),
 				increment(context));
-		return new Lambda<LIT>(function.evaluate(this, c));
+		return new Lambda<LIT>(type, body.evaluate(this, c));
 	}
 
 	private Context<Term<LIT>> increment(Context<Term<LIT>> context) {

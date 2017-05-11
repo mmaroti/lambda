@@ -14,7 +14,7 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	}
 
 	@Override
-	public Data closure(Evaluable<Data> function, Context<Data> context) {
+	public Data closure(Data type, Evaluable<Data> body, Context<Data> context) {
 		throw new UnsupportedOperationException();
 	}
 

@@ -17,8 +17,8 @@ public class IdentityEval<DATA, LIT> extends Evaluator<DATA, LIT> {
 	}
 
 	@Override
-	public DATA closure(Evaluable<LIT> function, Context<DATA> context) {
-		return executor.closure(function, context);
+	public DATA closure(DATA type, Evaluable<LIT> body, Context<DATA> context) {
+		return executor.closure(type, body, context);
 	}
 
 	@Override
