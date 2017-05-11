@@ -27,11 +27,6 @@ public class IdentityEval<DATA, LIT> extends Evaluator<DATA, LIT> {
 	}
 
 	@Override
-	public DATA pair(DATA left, DATA right) {
-		return executor.pair(left, right);
-	}
-
-	@Override
 	public DATA literal(LIT value) {
 		return executor.literal(value);
 	}

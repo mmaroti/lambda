@@ -25,11 +25,6 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	}
 
 	@Override
-	public Data pair(Data left, Data right) {
-		return new PairData(left, right);
-	}
-
-	@Override
 	public Data literal(Data value) {
 		return value;
 	}

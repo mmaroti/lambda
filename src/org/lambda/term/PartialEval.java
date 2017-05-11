@@ -59,16 +59,6 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> pair(Term<LIT> left, Term<LIT> right) {
-		if (left instanceof Literal && right instanceof Literal) {
-			Literal<LIT> l = (Literal<LIT>) left;
-			Literal<LIT> r = (Literal<LIT>) right;
-			return new Literal<LIT>(calculator.pair(l.value, r.value));
-		} else
-			return new Pair<LIT>(left, right);
-	}
-
-	@Override
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}

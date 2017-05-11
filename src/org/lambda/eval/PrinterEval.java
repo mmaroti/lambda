@@ -69,12 +69,6 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	}
 
 	@Override
-	public Data pair(Data left, Data right) {
-		return new Data(ATOM, Math.max(left.extent, right.extent), "("
-				+ left.format(ATOM) + ", " + right.format(ATOM) + ")");
-	}
-
-	@Override
 	public Data literal(LIT value) {
 		return new Data(ATOM, 0, value.toString());
 	}

@@ -13,7 +13,7 @@ public abstract class BinaryOp extends UnaryOp {
 
 	@Override
 	public Data call(final Data arg1) {
-		return new UnaryOp("clo") {
+		return new UnaryOp("partial") {
 			@Override
 			public Data call(Data arg2) {
 				return BinaryOp.this.call(arg1, arg2);
@@ -70,6 +70,13 @@ public abstract class BinaryOp extends UnaryOp {
 			IntData a1 = (IntData) arg1;
 			IntData a2 = (IntData) arg2;
 			return new IntData(a1.value * a2.value);
+		}
+	};
+
+	public static final BinaryOp PAIR = new BinaryOp("pair") {
+		@Override
+		public Data call(Data arg1, Data arg2) {
+			return new PairData(arg1, arg2);
 		}
 	};
 }

@@ -37,11 +37,6 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> pair(Term<LIT> left, Term<LIT> right) {
-		return new Pair<LIT>(left, right);
-	}
-
-	@Override
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
