@@ -13,4 +13,6 @@ public abstract class Evaluator<DATA, LIT> {
 	public abstract DATA apply(DATA func, DATA arg);
 
 	public abstract DATA literal(LIT value);
+
+	public abstract DATA primitive(String prim);
 }

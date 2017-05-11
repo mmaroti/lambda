@@ -20,7 +20,7 @@ public class UnitTests {
 
 	public static void test1() {
 		Term<Data> type = new Literal<Data>(null);
-		Term<Data> iadd = new Literal<Data>(BinaryOp.INT_ADD);
+		Term<Data> iadd = new Primitive<Data>("iadd");
 
 		Term<Data> a = iadd.apply(new Literal<Data>(new IntData(1))).apply(
 				new Literal<Data>(new IntData(2)));

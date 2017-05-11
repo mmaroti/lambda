@@ -28,4 +28,17 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 	public Data literal(Data value) {
 		return value;
 	}
+
+	@Override
+	public Data primitive(String prim) {
+		for (UnaryOp op : UnaryOp.INSTANCES)
+			if (op.symbol.equals(prim))
+				return op;
+
+		for (BinaryOp op : BinaryOp.INSTANCES)
+			if (op.symbol.equals(prim))
+				return op;
+
+		throw new UnsupportedOperationException();
+	}
 }

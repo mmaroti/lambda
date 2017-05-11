@@ -63,4 +63,9 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
+
+	@Override
+	public Term<LIT> primitive(String prim) {
+		return new Literal<LIT>(calculator.primitive(prim));
+	}
 }

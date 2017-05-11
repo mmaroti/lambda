@@ -41,4 +41,9 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	public Term<LIT> literal(LIT value) {
 		return new Literal<LIT>(value);
 	}
+
+	@Override
+	public Term<LIT> primitive(String prim) {
+		return new Primitive<LIT>(prim);
+	}
 }

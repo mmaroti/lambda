@@ -74,4 +74,9 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	public Data literal(LIT value) {
 		return new Data(ATOM, 0, value == null ? "null" : value.toString());
 	}
+
+	@Override
+	public Data primitive(String prim) {
+		return new Data(ATOM, 0, prim);
+	}
 }
