@@ -31,6 +31,10 @@ public class CalculatorEval extends Evaluator<Data, Data> {
 
 	@Override
 	public Data primitive(String prim) {
+		for (NullaryOp op : NullaryOp.INSTANCES)
+			if (op.symbol.equals(prim))
+				return op;
+
 		for (UnaryOp op : UnaryOp.INSTANCES)
 			if (op.symbol.equals(prim))
 				return op;

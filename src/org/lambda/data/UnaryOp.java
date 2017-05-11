@@ -4,16 +4,9 @@
 
 package org.lambda.data;
 
-public abstract class UnaryOp extends Data {
-	public final String symbol;
-
+public abstract class UnaryOp extends NullaryOp {
 	public UnaryOp(String symbol) {
-		this.symbol = symbol;
-	}
-
-	@Override
-	public String toString() {
-		return "#" + symbol;
+		super(symbol);
 	}
 
 	public abstract Data call(Data arg);

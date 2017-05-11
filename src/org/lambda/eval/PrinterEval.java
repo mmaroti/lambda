@@ -60,7 +60,7 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 		Data v = variable(ext);
 		Data b = body.evaluate(this, new Context<Data>(v, context));
 
-		return new Data(LAMBDA, ext, v.value + " : " + type.format(ATOM)
+		return new Data(LAMBDA, ext, v.value + ":" + type.format(ATOM)
 				+ " -> " + b.format(LAMBDA));
 	}
 

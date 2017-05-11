@@ -19,7 +19,7 @@ public class UnitTests {
 	}
 
 	public static void test1() {
-		Term<Data> type = new Literal<Data>(null);
+		Term<Data> type = new Primitive<Data>("int");
 		Term<Data> iadd = new Primitive<Data>("iadd");
 
 		Term<Data> a = iadd.apply(new Literal<Data>(new IntData(1))).apply(
@@ -45,15 +45,19 @@ public class UnitTests {
 		Term<Data> v1 = new Variable<Data>(1);
 		Term<Data> v2 = new Variable<Data>(2);
 
+		// s :: forall c d e. (c -> d -> e) -> (c -> d) -> c -> e
+		// s x y z = x z (y z)
 		Term<Data> s = new Lambda<Data>(type, new Lambda<Data>(type,
 				new Lambda<Data>(type, (v2.apply(v0)).apply(v1.apply(v0)))));
 		print(s);
 
+		// k :: forall a. a -> forall b. b -> a
+		// k x _ = x
 		Term<Data> k = new Lambda<Data>(type, new Lambda<Data>(type, v1));
 		print(k);
 
-		Term<Data> t = s.apply(k).apply(k);
-		print(t);
+		print(s.apply(k));
+		print(s.apply(k).apply(k));
 	}
 
 	public static void main(String[] args) {
