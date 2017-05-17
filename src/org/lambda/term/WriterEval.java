@@ -17,10 +17,8 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> closure(Term<LIT> type, Evaluable<LIT> body,
-			Context<Term<LIT>> context) {
-		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0),
-				increment(context));
+	public Term<LIT> closure(Context<Term<LIT>> context, Term<LIT> type, Evaluable<LIT> body) {
+		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0), increment(context));
 		return new Lambda<LIT>(type, body.evaluate(this, c));
 	}
 
@@ -28,8 +26,7 @@ public class WriterEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 		if (context == null)
 			return context;
 
-		return new Context<Term<LIT>>(context.data.increment(0),
-				increment(context.parent));
+		return new Context<Term<LIT>>(context.data.increment(0), increment(context.parent));
 	}
 
 	@Override

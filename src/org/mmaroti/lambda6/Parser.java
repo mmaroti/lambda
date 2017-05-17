@@ -88,15 +88,13 @@ public class Parser {
 			a += cp - '0';
 
 			if (a > Integer.MAX_VALUE)
-				throw new IllegalArgumentException("too large integer at"
-						+ location());
+				throw new IllegalArgumentException("too large integer at" + location());
 
 			next();
 		}
 
 		if (Character.isLetter(cp))
-			throw new IllegalArgumentException("unexpected letter at "
-					+ location());
+			throw new IllegalArgumentException("unexpected letter at " + location());
 
 		return new Integer((int) a);
 	}

@@ -14,7 +14,7 @@ public class InterpreterEval extends Evaluator<Data, Data> {
 	}
 
 	@Override
-	public Data closure(Data type, final Evaluable<Data> body, final Context<Data> context) {
+	public Data closure(final Context<Data> context, Data type, final Evaluable<Data> body) {
 		return new UnaryOp("closure?") {
 			@Override
 			public Data call(Data arg) {

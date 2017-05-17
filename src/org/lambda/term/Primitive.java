@@ -29,8 +29,7 @@ public class Primitive<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
-			Context<DATA> context) {
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator, Context<DATA> context) {
 		return evaluator.primitive(prim);
 	}
 }

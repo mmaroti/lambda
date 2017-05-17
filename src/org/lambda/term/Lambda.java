@@ -36,9 +36,8 @@ public class Lambda<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
-			Context<DATA> context) {
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator, Context<DATA> context) {
 		DATA t = type.evaluate(evaluator, context);
-		return evaluator.closure(t, body, context);
+		return evaluator.closure(context, t, body);
 	}
 }

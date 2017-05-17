@@ -22,20 +22,17 @@ public class UnitTests {
 		Term<Data> type = new Primitive<Data>("int");
 		Term<Data> iadd = new Primitive<Data>("iadd");
 
-		Term<Data> a = iadd.apply(new Literal<Data>(new IntData(1))).apply(
-				new Literal<Data>(new IntData(2)));
+		Term<Data> a = iadd.apply(new Literal<Data>(new IntData(1))).apply(new Literal<Data>(new IntData(2)));
 		print(a);
 
-		Term<Data> b = iadd.apply(new Variable<Data>(1)).apply(
-				new Variable<Data>(0));
+		Term<Data> b = iadd.apply(new Variable<Data>(1)).apply(new Variable<Data>(0));
 		print(b);
 
 		Term<Data> c = iadd.apply(new Variable<Data>(1)).apply(
-				iadd.apply(new Variable<Data>(0)).apply(new Variable<Data>(0)));
+			iadd.apply(new Variable<Data>(0)).apply(new Variable<Data>(0)));
 		print(c);
 
-		Term<Data> d = new Lambda<Data>(type, c).apply(new Literal<Data>(
-				new IntData(10)));
+		Term<Data> d = new Lambda<Data>(type, c).apply(new Literal<Data>(new IntData(10)));
 		print(d);
 	}
 
@@ -47,8 +44,8 @@ public class UnitTests {
 
 		// s :: forall c d e. (c -> d -> e) -> (c -> d) -> c -> e
 		// s x y z = x z (y z)
-		Term<Data> s = new Lambda<Data>(type, new Lambda<Data>(type,
-				new Lambda<Data>(type, (v2.apply(v0)).apply(v1.apply(v0)))));
+		Term<Data> s = new Lambda<Data>(type, new Lambda<Data>(type, new Lambda<Data>(type, (v2.apply(v0)).apply(v1
+			.apply(v0)))));
 		print(s);
 
 		// k :: forall a. a -> forall b. b -> a

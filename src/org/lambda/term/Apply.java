@@ -17,8 +17,7 @@ public class Apply<LIT> extends Binary<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
-			Context<DATA> context) {
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator, Context<DATA> context) {
 		DATA a = left.evaluate(evaluator, context);
 		DATA b = right.evaluate(evaluator, context);
 		return evaluator.apply(a, b);

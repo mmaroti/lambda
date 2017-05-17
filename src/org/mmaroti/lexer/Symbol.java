@@ -16,8 +16,7 @@ public class Symbol extends Token {
 		return name;
 	}
 
-	private static final int[] OPERATORS = { '+', '-', '*', '/', '>', '<', '=',
-			'\\' };
+	private static final int[] OPERATORS = { '+', '-', '*', '/', '>', '<', '=', '\\' };
 
 	public static boolean isOperator(Lexer lexer) {
 		for (int i = 0; i < OPERATORS.length; i++)

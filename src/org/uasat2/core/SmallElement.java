@@ -72,13 +72,11 @@ public class SmallElement {
 		SmallElement FALSE = new SmallElement(BOOLEAN, 0);
 		SmallElement TRUE = new SmallElement(BOOLEAN, 1);
 
-		Domain UNARIES = new Domain.Function(new Domain.Function(
-				new Domain.Primitive(1), BOOLEAN), BOOLEAN);
+		Domain UNARIES = new Domain.Function(new Domain.Function(new Domain.Primitive(1), BOOLEAN), BOOLEAN);
 		SmallElement NEG = new SmallElement(UNARIES, 1);
 		SmallElement ID = new SmallElement(UNARIES, 2);
 
-		Domain BINARIES = new Domain.Function(new Domain.Function(
-				new Domain.Primitive(2), BOOLEAN), BOOLEAN);
+		Domain BINARIES = new Domain.Function(new Domain.Function(new Domain.Primitive(2), BOOLEAN), BOOLEAN);
 		SmallElement AND = new SmallElement(BINARIES, 8);
 		SmallElement OR = new SmallElement(BINARIES, 14);
 		SmallElement EQU = new SmallElement(BINARIES, 9);

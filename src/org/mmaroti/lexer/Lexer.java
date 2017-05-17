@@ -35,8 +35,7 @@ public class Lexer {
 	}
 
 	public void error(String message) {
-		throw new IllegalArgumentException(message + " at line " + line
-				+ " column " + column);
+		throw new IllegalArgumentException(message + " at line " + line + " column " + column);
 	}
 
 	public int peek() {

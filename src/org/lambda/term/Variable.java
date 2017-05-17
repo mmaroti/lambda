@@ -33,8 +33,7 @@ public class Variable<LIT> extends Term<LIT> {
 	}
 
 	@Override
-	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
-			Context<DATA> context) {
+	public <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator, Context<DATA> context) {
 		for (int i = 0; i < index; i++)
 			context = context.parent;
 

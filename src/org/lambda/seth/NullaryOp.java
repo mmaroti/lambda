@@ -16,6 +16,5 @@ public class NullaryOp extends Data {
 		return "#" + symbol;
 	}
 
-	public static final NullaryOp[] INSTANCES = new NullaryOp[] { new NullaryOp(
-			"dom") };
+	public static final NullaryOp[] INSTANCES = new NullaryOp[] { new NullaryOp("dom") };
 }

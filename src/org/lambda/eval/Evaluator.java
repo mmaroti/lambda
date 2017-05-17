@@ -7,8 +7,7 @@ package org.lambda.eval;
 public abstract class Evaluator<DATA, LIT> {
 	public abstract DATA evaluate(Evaluable<LIT> evaluable);
 
-	public abstract DATA closure(DATA type, Evaluable<LIT> body,
-			Context<DATA> context);
+	public abstract DATA closure(Context<DATA> context, DATA type, Evaluable<LIT> body);
 
 	public abstract DATA apply(DATA func, DATA arg);
 

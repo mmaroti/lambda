@@ -21,19 +21,18 @@ public abstract class BinaryOp extends UnaryOp {
 		};
 	}
 
-	public static final BinaryOp[] INSTANCES = new BinaryOp[] {
-			new BinaryOp("arrow") {
-				@Override
-				public Data call(Data arg1, Data arg2) {
-					Domain d1 = (Domain) arg1;
-					Domain d2 = (Domain) arg2;
-					return new Domain.Arrow(d1, d2);
-				}
-			}, new BinaryOp("cons") {
-				@Override
-				public Data call(Data arg1, Data arg2) {
-					List l = (List) arg2;
-					return new List.Cons(arg1, l);
-				}
-			} };
+	public static final BinaryOp[] INSTANCES = new BinaryOp[] { new BinaryOp("arrow") {
+		@Override
+		public Data call(Data arg1, Data arg2) {
+			Domain d1 = (Domain) arg1;
+			Domain d2 = (Domain) arg2;
+			return new Domain.Arrow(d1, d2);
+		}
+	}, new BinaryOp("cons") {
+		@Override
+		public Data call(Data arg1, Data arg2) {
+			List l = (List) arg2;
+			return new List.Cons(arg1, l);
+		}
+	} };
 }

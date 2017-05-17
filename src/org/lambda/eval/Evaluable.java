@@ -13,8 +13,7 @@ public abstract class Evaluable<LIT> {
 	/**
 	 * Evaluates this function with the given executor and context
 	 */
-	public abstract <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator,
-			Context<DATA> context);
+	public abstract <DATA> DATA evaluate(Evaluator<DATA, LIT> evaluator, Context<DATA> context);
 
 	@Override
 	@SuppressWarnings("unchecked")

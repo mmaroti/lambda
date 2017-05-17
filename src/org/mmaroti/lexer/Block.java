@@ -52,8 +52,7 @@ public class Block extends Token {
 		if (lexer.peek() == end)
 			lexer.next();
 		else
-			lexer.error("block " + new String(Character.toChars(end))
-					+ " expected");
+			lexer.error("block " + new String(Character.toChars(end)) + " expected");
 
 		return new Block(new String(Character.toChars(bgn)), list);
 	}

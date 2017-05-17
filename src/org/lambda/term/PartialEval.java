@@ -23,10 +23,8 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 	}
 
 	@Override
-	public Term<LIT> closure(Term<LIT> type, Evaluable<LIT> body,
-			Context<Term<LIT>> context) {
-		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0),
-				increment(context));
+	public Term<LIT> closure(Context<Term<LIT>> context, Term<LIT> type, Evaluable<LIT> body) {
+		Context<Term<LIT>> c = new Context<Term<LIT>>(new Variable<LIT>(0), increment(context));
 		return new Lambda<LIT>(type, body.evaluate(this, c));
 	}
 
@@ -34,16 +32,14 @@ public class PartialEval<LIT> extends Evaluator<Term<LIT>, LIT> {
 		if (context == null)
 			return context;
 
-		return new Context<Term<LIT>>(context.data.increment(0),
-				increment(context.parent));
+		return new Context<Term<LIT>>(context.data.increment(0), increment(context.parent));
 	}
 
 	@Override
 	public Term<LIT> apply(Term<LIT> func, Term<LIT> arg) {
 		if (func instanceof Lambda) {
 			Term<LIT> b = ((Lambda<LIT>) func).body;
-			if (b.getOccurences(0) <= 1 || arg instanceof Variable
-					|| arg instanceof Literal) {
+			if (b.getOccurences(0) <= 1 || arg instanceof Variable || arg instanceof Literal) {
 				Context<Term<LIT>> c = null;
 				for (int i = 0; i < b.getExtent() - 1; i++)
 					c = new Context<Term<LIT>>(new Variable<LIT>(i), c);

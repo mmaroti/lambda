@@ -55,19 +55,17 @@ public class PrinterEval<LIT> extends Evaluator<PrinterEval.Data, LIT> {
 	}
 
 	@Override
-	public Data closure(Data type, Evaluable<LIT> body, Context<Data> context) {
+	public Data closure(Context<Data> context, Data type, Evaluable<LIT> body) {
 		int ext = getExtent(context);
 		Data v = variable(ext);
 		Data b = body.evaluate(this, new Context<Data>(v, context));
 
-		return new Data(LAMBDA, ext, v.value + ":" + type.format(ATOM)
-				+ " -> " + b.format(LAMBDA));
+		return new Data(LAMBDA, ext, v.value + ":" + type.format(ATOM) + " -> " + b.format(LAMBDA));
 	}
 
 	@Override
 	public Data apply(Data func, Data arg) {
-		return new Data(APPLY, Math.max(func.extent, arg.extent),
-				func.format(APPLY) + " " + arg.format(APPLY_ARG));
+		return new Data(APPLY, Math.max(func.extent, arg.extent), func.format(APPLY) + " " + arg.format(APPLY_ARG));
 	}
 
 	@Override
