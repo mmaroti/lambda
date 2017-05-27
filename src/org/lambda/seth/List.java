@@ -9,24 +9,53 @@ public abstract class List extends Data {
 	public String toString() {
 		String s = "[";
 
-		List l = this;
-		while (l instanceof Cons) {
-			if (l != this)
+		List list = this;
+		while (list instanceof Cons) {
+			if (list != this)
 				s += ", ";
 
-			Cons c = (Cons) l;
+			Cons c = (Cons) list;
 			s += c.head.toString();
-			l = c.tail;
+			list = c.tail;
 		}
 
 		s += "]";
 		return s;
 	}
 
-	public static class Nill extends List {
-		public Nill() {
+	public boolean equals(Object other) {
+		if (!(other instanceof List))
+			return false;
+
+		List list1 = this;
+		List list2 = (List) other;
+
+		while (list1 instanceof Cons && list2 instanceof Cons) {
+			Cons cons1 = (Cons) list1;
+			Cons cons2 = (Cons) list2;
+
+			if (!cons1.head.equals(cons2.head))
+				return false;
+
+			list1 = cons1.tail;
+			list2 = cons2.tail;
 		}
+
+		return list1 == list2;
 	}
+
+	public int length() {
+		int len = 0;
+		List list = this;
+		while (list instanceof Cons) {
+			len += 1;
+			list = ((Cons) list).tail;
+		}
+		return len;
+	}
+
+	public static List NILL = new List() {
+	};
 
 	public static class Cons extends List {
 		public final Data head;

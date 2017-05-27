@@ -27,103 +27,124 @@ public abstract class Domain extends Data {
 	@Override
 	public abstract String toString();
 
-	public static class Product extends Domain {
-		public final Domain[] factors;
-
-		public Product(Domain... factors) {
-			this.factors = factors;
-		}
-
+	public static final Domain INTEGERS = new Domain() {
 		@Override
 		public boolean isSmall() {
-			for (Domain factor : factors)
-				if (!factor.isSmall())
-					return false;
-			return true;
-		}
-
-		@Override
-		public int getSize() {
-			int s = 1;
-			for (Domain factor : factors)
-				s *= factor.getSize();
-			return s;
-		}
-
-		@Override
-		public boolean equals(Object other) {
-			if (other instanceof Product) {
-				Domain[] f = ((Product) other).factors;
-				if (factors.length == f.length) {
-					for (int i = 0; i < factors.length; i++)
-						if (!factors[i].equals(f[i]))
-							return false;
-					return true;
-				}
-			}
 			return false;
 		}
 
 		@Override
+		public int getSize() {
+			return -1;
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			return other == this;
+		}
+
+		@Override
 		public String toString() {
-			String s = "prod [";
-			for (int i = 0; i < factors.length; i++) {
-				if (i > 0)
-					s += ", ";
-				s += factors[i].toString();
+			return "Int";
+		}
+	};
+
+	private static boolean isSmall(List domains) {
+		while (domains instanceof List.Cons) {
+			List.Cons cons = (List.Cons) domains;
+
+			Domain head = (Domain) cons.head;
+			if (!head.isSmall())
+				return false;
+
+			domains = cons.tail;
+		}
+		return true;
+	}
+
+	public static class Product extends Domain {
+		public final List domains;
+
+		public Product(List domains) {
+			this.domains = domains;
+		}
+
+		@Override
+		public boolean isSmall() {
+			return isSmall(domains);
+		}
+
+		@Override
+		public int getSize() {
+			int size = 1;
+			List doms = domains;
+
+			while (doms instanceof List.Cons) {
+				List.Cons cons = (List.Cons) domains;
+
+				Domain head = (Domain) cons.head;
+				size *= head.getSize();
+
+				doms = cons.tail;
 			}
-			s += "]";
-			return s;
+			return size;
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			if (!(other instanceof Product))
+				return false;
+
+			Product prod = (Product) other;
+			return domains.equals(prod.domains);
+		}
+
+		@Override
+		public String toString() {
+			return "prod " + domains.toString();
 		}
 	}
 
 	public static class Union extends Domain {
-		public final Domain[] factors;
+		public final List domains;
 
-		public Union(Domain... factors) {
-			this.factors = factors;
+		public Union(List domains) {
+			this.domains = domains;
 		}
 
 		@Override
 		public boolean isSmall() {
-			for (Domain factor : factors)
-				if (!factor.isSmall())
-					return false;
-			return true;
+			return isSmall(domains);
 		}
 
 		@Override
 		public int getSize() {
-			int s = 0;
-			for (Domain factor : factors)
-				s += factor.getSize();
-			return s;
+			int size = 0;
+			List doms = domains;
+
+			while (doms instanceof List.Cons) {
+				List.Cons cons = (List.Cons) domains;
+
+				Domain head = (Domain) cons.head;
+				size += head.getSize();
+
+				doms = cons.tail;
+			}
+			return size;
 		}
 
 		@Override
 		public boolean equals(Object other) {
-			if (other instanceof Union) {
-				Domain[] f = ((Union) other).factors;
-				if (factors.length == f.length) {
-					for (int i = 0; i < factors.length; i++)
-						if (!factors[i].equals(f[i]))
-							return false;
-					return true;
-				}
-			}
-			return false;
+			if (!(other instanceof Product))
+				return false;
+
+			Product prod = (Product) other;
+			return domains.equals(prod.domains);
 		}
 
 		@Override
 		public String toString() {
-			String s = "union [";
-			for (int i = 0; i < factors.length; i++) {
-				if (i > 0)
-					s += ", ";
-				s += factors[i].toString();
-			}
-			s += "]";
-			return s;
+			return "union " + domains.toString();
 		}
 	}
 
@@ -158,6 +179,38 @@ public abstract class Domain extends Data {
 		@Override
 		public String toString() {
 			return "arrow " + argument.toString() + " " + result.toString();
+		}
+	}
+
+	public static class Star extends Domain {
+		public final Domain element;
+
+		public Star(Domain element) {
+			this.element = element;
+		}
+
+		@Override
+		public boolean isSmall() {
+			return false;
+		}
+
+		@Override
+		public int getSize() {
+			throw new IllegalStateException();
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			if (other instanceof Star) {
+				Star o = (Star) other;
+				return element.equals(o.element);
+			} else
+				return false;
+		}
+
+		@Override
+		public String toString() {
+			return "star " + element.toString();
 		}
 	}
 }

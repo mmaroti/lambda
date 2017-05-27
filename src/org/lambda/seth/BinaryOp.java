@@ -18,21 +18,24 @@ public abstract class BinaryOp extends UnaryOp {
 			public Data call(Data arg2) {
 				return BinaryOp.this.call(arg1, arg2);
 			}
+
+			// TODO: implement equality and better toString
 		};
 	}
 
-	public static final BinaryOp[] INSTANCES = new BinaryOp[] { new BinaryOp("arrow") {
-		@Override
-		public Data call(Data arg1, Data arg2) {
-			Domain d1 = (Domain) arg1;
-			Domain d2 = (Domain) arg2;
-			return new Domain.Arrow(d1, d2);
-		}
-	}, new BinaryOp("cons") {
-		@Override
-		public Data call(Data arg1, Data arg2) {
-			List l = (List) arg2;
-			return new List.Cons(arg1, l);
-		}
-	} };
+	public static final BinaryOp[] INSTANCES = new BinaryOp[] {
+			new BinaryOp("arrow") {
+				@Override
+				public Data call(Data arg1, Data arg2) {
+					Domain dom1 = (Domain) arg1;
+					Domain dom2 = (Domain) arg2;
+					return new Domain.Arrow(dom1, dom2);
+				}
+			}, new BinaryOp("cons") {
+				@Override
+				public Data call(Data arg1, Data arg2) {
+					List list = (List) arg2;
+					return new List.Cons(arg1, list);
+				}
+			} };
 }

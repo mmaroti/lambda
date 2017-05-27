@@ -16,5 +16,15 @@ public class NullaryOp extends Data {
 		return "#" + symbol;
 	}
 
-	public static final NullaryOp[] INSTANCES = new NullaryOp[] { new NullaryOp("dom") };
+	public static final NullaryOp[] INSTANCES = new NullaryOp[] {
+			new NullaryOp("dom"), new NullaryOp("nill") };
+
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof NullaryOp))
+			return false;
+
+		NullaryOp op = (NullaryOp) other;
+		return symbol.equals(op.symbol);
+	}
 }
